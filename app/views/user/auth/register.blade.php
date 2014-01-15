@@ -1,11 +1,15 @@
-{{ Form::open(array('url'=>'users/create', 'class'=>'form-signup')) }}
-   <h2 class="form-signup-heading">Please Register</h2>
+@extends('user._layouts.default')
  
-   <ul>
-      @foreach($errors->all() as $error)
-         <li>{{ $error }}</li>
-      @endforeach
-   </ul>
+@section('main')
+<h2 class="form-signup-heading">Please Register</h2>
+<div id="login" class="login">
+
+ {{ Form::open(array('url'=>'user/register', 'class'=>'form-signup')) }}
+    
+   @if ($errors->has('register'))
+     <div class="alert alert-error">{{ $errors->first('register', ':message') }}</div>
+   @endif
+ 
  
    {{ Form::text('firstname', null, array('class'=>'input-block-level', 'placeholder'=>'First Name')) }}
    {{ Form::text('lastname', null, array('class'=>'input-block-level', 'placeholder'=>'Last Name')) }}
@@ -15,3 +19,5 @@
  
    {{ Form::submit('Register', array('class'=>'btn btn-large btn-primary btn-block'))}}
 {{ Form::close() }}
+</div>
+@stop

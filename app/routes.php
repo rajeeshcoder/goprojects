@@ -17,6 +17,8 @@ Route::get('/', array('as' => 'home', 'uses' =>'HomeController@getDashBoard'));
 Route::get('user/logout', array('as' => 'user.logout', 'uses' => 'App\Controllers\User\AuthController@getLogout'));
 Route::get('user/login', array('as' => 'user.login', 'uses' => 'App\Controllers\User\AuthController@getLogin'));
 Route::post('user/login', array('as' => 'user.login.post', 'uses' => 'App\Controllers\User\AuthController@postLogin'));
+Route::get('user/register', array('as' => 'user.register', 'uses' => 'App\Controllers\User\AuthController@getRegister'));
+Route::post('user/register', array('as' => 'user.register.post', 'uses' => 'App\Controllers\User\AuthController@postRegister'));
 
 //Admin routes.
 Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controllers\Admin\AuthController@getLogout'));

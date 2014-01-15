@@ -14,6 +14,7 @@ return array(
     'App\\Models\\Model' => $baseDir . '/app/models/Model.php',
     'App\\Models\\User' => $baseDir . '/app/models/User.php',
     'App\\Services\\Validators\\ManufacturerValidator' => $baseDir . '/app/services/validators/ManufacturerValidator.php',
+    'App\\Services\\Validators\\UserRegisterValidator' => $baseDir . '/app/services/validators/UserRegisterValidator.php',
     'App\\Services\\Validators\\Validator' => $baseDir . '/app/services/validators/Validator.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Cartalyst\\Sentry\\Groups\\GroupExistsException' => $vendorDir . '/cartalyst/sentry/src/Cartalyst/Sentry/Groups/Exceptions.php',
