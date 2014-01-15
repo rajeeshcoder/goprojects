@@ -1,0 +1,8 @@
+<?php if(Session::has('message')): ?>
+   <p class="alert"><?php echo Session::get('message'); ?></p>
+<?php endif; ?>
+ 
+<!-- check for flash notification message -->
+<?php if(Session::has('flash_notice')): ?>
+   <div id="flash_notice"><?php echo Session::get('flash_notice'); ?></div>
+<?php endif; ?>

@@ -1,0 +1,6 @@
+
+<?php $__env->startSection('content'); ?>
+    <h1>Home page</h1>
+    $service_centers = $
+@section
+<?php echo $__env->make('layouts.main', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

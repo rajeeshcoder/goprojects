@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <?php echo HTML::style('packages/bootstrap2/css/bootstrap.min.css'); ?>
+    <?php echo HTML::style('css/main.css'); ?>
+    <?php echo HTML::script('packages/bootstrap2/js/bootstrap.min.js'); ?> 
+   <title>Car Service</title>    
+  </head>
+  <body>  	  
+        <header class="row">
+		  <?php echo $__env->make('includes.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	    </header>
+
+	    <div class="container">
+	   	   <?php echo $__env->make('includes.flash', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		   <!-- main content -- >
+
+		   <div class="content" class="col-md-12">
+			   <?php echo $__env->yieldContent('content'); ?>
+		   </div>
+        </div>
+
+  		<!-- Footer -->
+    	<header class="row">
+		<?php echo $__env->make('includes.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	  </header
+  </body>
+</html>

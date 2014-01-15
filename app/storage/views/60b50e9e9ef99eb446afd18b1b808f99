@@ -1,0 +1,19 @@
+<!-- Header part -->
+  	 	<div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                   	<ul class="nav">
+                   		<li class="active"><a href="#">My Service</a></li> 
+  						</li>  
+                       <li><a href="#">Cars</a></li>
+                       <li><a href="#">Service Centers</a></li>
+                       <li><a href="#">Reviews</a></li>
+                    </ul>
+                    <div class="navbar-link pull-right">
+                    	<a href="/register">Register</a> | <a href="/login">Login</a>
+                    </div>
+            
+					</div>
+                </div>
+            </div>
+        </div> 	

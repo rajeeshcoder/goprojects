@@ -1,0 +1,13 @@
+<div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
+      <div class="container">
+         <ul class="nav"> 
+            <?php echo $__env->make('user._partials.navigation', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>  
+            <?php if (!Sentry::check() || !Sentry::getUser()->hasAccess(['user']) ): ?>
+               <li><?php echo HTML::link('user/register', 'Register'); ?></li>  
+               <li><?php echo HTML::link('user/login', 'Login'); ?></li>
+            <?php endif; ?>
+         </ul> 
+      </div>
+   </div>
+</div>

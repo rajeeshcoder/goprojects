@@ -1,0 +1,31 @@
+ 
+<?php $__env->startSection('main'); ?>
+ 
+        <table class="table table-striped">
+                <thead>
+                        <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>When</th>
+                                <th><a href="<?php echo URL::route('admin.manufacturers.create'); ?>"><i class="icon-cog"></i></a></th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <?php foreach ($manufacturers as $manufacturer): ?>
+                                <tr>
+                                        <td><?php echo $manufacturer->id; ?></td>
+                                        <td><a href="<?php echo URL::route('admin.manufacturers.show', $manufacturer->id); ?>"><?php echo $manufacturer->title; ?></a></td>
+                                        <td><?php echo $manufacturer->created_at; ?></td>
+                                        <td>
+                                                <a href="<?php echo URL::route('admin.manufacturers.edit', $manufacturer->id); ?>" class="btn btn-success btn-mini pull-left">Edit</a>
+                                                <?php echo Form::open(array('route' => array('admin.manufacturers.destroy', $manufacturer->id), 'method' => 'delete', 'data-confirm' => 'Are you sure?')); ?>
+                                                        <button type="submit" href="<?php echo URL::route('admin.manufacturers.destroy', $manufacturer->id); ?>" class="btn btn-danger btn-mini">Delete</butfon>
+                                                <?php echo Form::close(); ?>
+                                        </td>
+                                </tr>
+                        <?php endforeach; ?>
+                </tbody>
+        </table>
+ 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

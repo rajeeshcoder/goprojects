@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <title>Car Service</title>
+
+        <?php echo $__env->make('common.includes.assets', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+</head>
+<body>
+<div class="container">
+        <?php echo $__env->make('admin._partials.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+        <?php echo $__env->yieldContent('main'); ?>
+</div>
+</body>
+</html>
