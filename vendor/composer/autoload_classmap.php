@@ -6,14 +6,20 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'AddUserIdToManufacturersTable' => $baseDir . '/app/database/migrations/2014_01_13_103703_add_user_id_to_manufacturers_table.php',
+    'AddUserIdToXTable' => $baseDir . '/app/database/migrations/2014_01_13_103703_add_user_id_to_manufacturers_table.php',
+    'AddUseridToDealers' => $baseDir . '/app/database/migrations/2014_01_16_091342_add_userid_to_dealers.php',
+    'AddUseridToModels' => $baseDir . '/app/database/migrations/2014_01_16_071119_add_userid_to_models.php',
     'App\\Controllers\\Admin\\AuthController' => $baseDir . '/app/controllers/admin/AuthController.php',
+    'App\\Controllers\\Admin\\DealersController' => $baseDir . '/app/controllers/admin/DealersController.php',
     'App\\Controllers\\Admin\\ManufacturersController' => $baseDir . '/app/controllers/admin/ManufacturersController.php',
+    'App\\Controllers\\Admin\\ModelsController' => $baseDir . '/app/controllers/admin/ModelsController.php',
     'App\\Controllers\\User\\AuthController' => $baseDir . '/app/controllers/user/AuthController.php',
+    'App\\Models\\Dealer' => $baseDir . '/app/models/Dealer.php',
     'App\\Models\\Manufacturer' => $baseDir . '/app/models/Manufacturer.php',
     'App\\Models\\Model' => $baseDir . '/app/models/Model.php',
     'App\\Models\\User' => $baseDir . '/app/models/User.php',
     'App\\Services\\Validators\\ManufacturerValidator' => $baseDir . '/app/services/validators/ManufacturerValidator.php',
+    'App\\Services\\Validators\\ModelValidator' => $baseDir . '/app/services/validators/ModelValidator.php',
     'App\\Services\\Validators\\UserRegisterValidator' => $baseDir . '/app/services/validators/UserRegisterValidator.php',
     'App\\Services\\Validators\\Validator' => $baseDir . '/app/services/validators/Validator.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',

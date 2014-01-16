@@ -29,4 +29,10 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth.admin'), function()
 {
         Route::any('/', 'App\Controllers\Admin\ManufacturersController@index');
         Route::resource('manufacturers', 'App\Controllers\Admin\ManufacturersController');
+        Route::resource('models', 'App\Controllers\Admin\ModelsController');
+        Route::resource('dealers', 'App\Controllers\Admin\DealersController');
+        
+        # Admin Dashboard
+    	Route::controller('/', 'App\Controllers\Admin\ModelsController');
+    	Route::controller('/', 'App\Controllers\Admin\ManufacturersController');
 });

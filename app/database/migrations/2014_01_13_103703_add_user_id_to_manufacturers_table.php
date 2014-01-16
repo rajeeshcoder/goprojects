@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class AddUserIdToManufacturersTable extends Migration {
+class AddUserIdToXTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,7 +11,7 @@ class AddUserIdToManufacturersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('manufacturers', function($table) {
+		Schema::table('models', function($table) {
 			$table->integer('user_id');
 		});
 	}
@@ -23,7 +23,7 @@ class AddUserIdToManufacturersTable extends Migration {
 	 */
 	public function down()
 	{
-		 Schema::table('manufacturers', function($table)
+		 Schema::table('models', function($table)
         {
             $table->dropColumn('title');
         });

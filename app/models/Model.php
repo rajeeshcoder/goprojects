@@ -2,11 +2,11 @@
  
 class Model extends \Eloquent {
  
-    protected $table = 'model';
+    protected $table = 'models';
  
-    public function manufactuerer()
+    public function manufacturer()
     {
-        return $this->belongsTo('Manufacturer');
+        return $this->belongsTo('App\Models\Manufacturer');
     }
  
 }
