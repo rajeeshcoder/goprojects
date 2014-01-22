@@ -3,6 +3,7 @@
 use Eloquent;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use App\Models\CustomerProfile;
 
 class User extends \Cartalyst\Sentry\Users\Eloquent\User implements UserInterface, RemindableInterface {
 
@@ -50,4 +51,8 @@ class User extends \Cartalyst\Sentry\Users\Eloquent\User implements UserInterfac
                 return $this->email;
         }
 
+        public function customerprofiles()
+        {
+                return $this->hasMany('App\Models\CustomerProfile');
+        }
 }

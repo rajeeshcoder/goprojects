@@ -1,0 +1,78 @@
+ 
+<?php $__env->startSection('main'); ?>
+
+<div class="container">
+ 
+  <?php if ($vehicles->count() < 3): ?> 
+  <div class="row button-row">
+    <div class="span12"> 
+      <p> 
+        <a href="<?php echo URL::route('customer.vehicles.create'); ?>" class="btn btn-primary pull-left">Create a New Vehicle</a>
+      </p>
+    </div>
+    </div>        
+  <?php endif; ?>
+ <div class="row button-space">
+    <div class="span12"> 
+      <p> </p>
+     </div>
+  </div>    
+<?php $i=0;$j=0; ?>
+
+<?php if ($vehicles->count() > 0): ?>
+<div class="row vehicle-row">
+    <div class="span12"> 
+      <div class="tabbable tabs-centre">
+        <ul class="nav nav-tabs">
+         <?php foreach ($vehicles as $vehicle): ?>      
+          <li class=<?php echo $i == 0 ? "active" : ""; ?>><a href="#<?php echo $vehicle->id; ?>" data-toggle="tab"><?php echo $vehicle->reg_no; ?></a></li>
+          <?php $i++; ?>     
+          <?php endforeach; ?>
+        </ul>
+        <div id='content' class="tab-content">
+                <?php foreach ($vehicles as $vehicle): ?>   
+                      <div class="tab-pane <?php echo $j == 0 ? "active" : ""; ?>" id="<?php echo $vehicle->id; ?>">
+
+                             <table  class="table table-condensed table-striped table-hover">
+                                <tr>
+                                <td colspan="2">
+                                   <a href="<?php echo URL::route('customer.vehicles.edit', $vehicle->id); ?>" class="btn btn-success btn-mini pull-left">Edit</a>
+                                                <?php echo Form::open(array('route' => array('customer.vehicles.destroy', $vehicle->id), 'method' => 'delete', 'data-confirm' => 'Are you sure?')); ?>
+                                                        <button type="submit" href="<?php echo URL::route('customer.vehicles.destroy', $vehicle->id); ?>" class="btn btn-danger btn-mini">Delete</butfon>
+                                                <?php echo Form::close(); ?>
+                                 </td>                       
+                                </tr>
+                              <tr>
+                                 <td>Manufacturer</td><td><?php echo $vehicle->model->manufacturer->title; ?></td>
+                              </tr>
+                              <tr>   
+                              <tr>
+                                 <td>Model</td><td><?php echo $vehicle->model->title; ?></td>
+                              </tr>
+                              <tr>   
+                                 <td>Engine No</td><td><?php echo $vehicle->engine_no; ?></td>
+                              </tr>
+                              <tr>   
+                                 <td>Chasis No</td><td><?php echo $vehicle->chasis_no; ?></td>
+                              </tr>
+                              <tr>   
+                                 <td>Color</td><td><?php echo $vehicle->color; ?></td>
+                              </tr> 
+                              <tr>  
+                                 <td>Registration Date</td><td><?php echo $vehicle->regdate; ?></td>
+                             </tr>
+                             </table>    
+                            <a href="<?php echo URL::to('/customer/bookings/center', array($vehicle->id, $vehicle->model_id)); ?>" class="btn btn-default btn-large pull-left">New Service Booking</a>  
+                      </div>
+                   <?php $j++; ?> 
+
+                  <?php endforeach; ?>
+        </div>
+  </div>  
+  </div> <!-- End of span -->    
+</div> <!--End of Vehicle Row -->
+<?php endif; ?> 
+
+</div>        
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('customer._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

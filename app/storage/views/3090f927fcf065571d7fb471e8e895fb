@@ -1,0 +1,24 @@
+ 
+<?php $__env->startSection('main'); ?>
+<h2 class="form-signup-heading">Please Register</h2>
+
+<div id="login" class="login">
+
+ <?php echo Form::open(array('url'=>'customer/register', 'class'=>'form-signup')); ?>
+    
+   <?php if ($errors->has('register')): ?>
+     <div class="alert alert-error"><?php echo $errors->first('register', ':message'); ?></div>
+   <?php endif; ?>
+ 
+ 
+   <?php echo Form::text('firstname', null, array('class'=>'input-block-level', 'placeholder'=>'First Name')); ?>
+   <?php echo Form::text('lastname', null, array('class'=>'input-block-level', 'placeholder'=>'Last Name')); ?>
+   <?php echo Form::text('email', null, array('class'=>'input-block-level', 'placeholder'=>'Email Address')); ?>
+   <?php echo Form::password('password', array('class'=>'input-block-level', 'placeholder'=>'Password')); ?>
+   <?php echo Form::password('password_confirmation', array('class'=>'input-block-level', 'placeholder'=>'Confirm Password')); ?>
+ 
+   <?php echo Form::submit('Register', array('class'=>'btn btn-large btn-primary btn-block')); ?>
+<?php echo Form::close(); ?>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('customer._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

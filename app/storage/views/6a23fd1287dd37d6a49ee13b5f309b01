@@ -1,0 +1,20 @@
+<div class="nav-collapse collapse">
+<?php if (Sentry::check() && Sentry::getUser()->hasAccess(['customer']) ): ?>	
+	<p class="navbar-text pull-right">
+	<a href="#"><i class="icon-user"></i>Logged in as: <?php echo Sentry::getUser()->email; ?></a>
+	<a href="<?php echo URL::route('customer.logout'); ?>"><i class="icon-lock"></i> Logout</a>
+	</p>
+<?php endif; ?>	
+<ul class="nav">
+	<?php if (Sentry::check() && Sentry::getUser()->hasAccess(['customer']) ): ?>
+		<li class="<?php echo Request::is('customer/profile*') ? 'active' : null; ?>"><a href="<?php echo URL::route('customer.profiles.index'); ?>"><i class="icon-user"></i>Profile</a></li>
+		<li class="<?php echo Request::is('customer/vehicles*') ? 'active' : null; ?>"><a href="<?php echo URL::route('customer.vehicles.index'); ?>"><i class="icon-move"></i>Vehicles</a></li>
+		<li class="<?php echo Request::is('customer/booking*') ? 'active' : null; ?>"><a href="<?php echo URL::route('customer.vehicles.index'); ?>"><i class="icon-road"></i>Booking</a></li>
+		<li class="<?php echo Request::is('customer/services*') ? 'active' : null; ?>"><a href="<?php echo URL::route('customer.services.index'); ?>"><i class="icon-pencil"></i>Services</a></li>
+	<?php else: ?> 
+       <li><?php echo HTML::link('customer/register', 'Register'); ?></li>  
+       <li><?php echo HTML::link('customer/login', 'Login'); ?></li>
+	<?php endif; ?>		
+</ul>
+</div>
+

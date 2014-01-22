@@ -8,7 +8,7 @@
                                 <th>#</th>
                                 <th>Title</th>
                                 <th>When</th>
-                                <th><a href="{{ URL::route('admin.manufacturers.create') }}"><i class="icon-cog"></i></a></th>
+                                <th><a href="{{ URL::route('admin.dealers.create') }}" class="btn btn-primary btn-default pull-left">Create</a></th>
                         </tr>
                 </thead>
                 <tbody>

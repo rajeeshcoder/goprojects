@@ -1,7 +1,7 @@
  
 <?php $__env->startSection('main'); ?>
  
-        <h2>Edit manufacturer</h2>
+        <h2>Edit dealer</h2>
         
         <?php echo Notification::showAll(); ?>
  
@@ -11,7 +11,7 @@
         </div>
         <?php endif; ?>
  
-        <?php echo Form::model($manufacturer, array('method' => 'put', 'route' => array('admin.manufacturers.update', $manufacturer->id))); ?>
+        <?php echo Form::model($dealer, array('method' => 'put', 'route' => array('admin.dealers.update', $dealer->id))); ?>
  
                 <div class="control-group">
                         <?php echo Form::label('title', 'Title'); ?>
@@ -19,10 +19,17 @@
                                 <?php echo Form::text('title'); ?>
                         </div>
                 </div>
-                
+
+                 <div class="control-group">
+                        <?php echo Form::label('manufacturer', 'Manufacturer'); ?>
+                        <div class="controls">
+                                <?php echo Form::select('manufacturer', $manufacturer, $manufacturer_id); ?>                
+                        </div>
+                </div>
+
                 <div class="form-actions">
                         <?php echo Form::submit('Save', array('class' => 'btn btn-success btn-save btn-large')); ?>
-                        <a href="<?php echo URL::route('admin.manufacturers.index'); ?>" class="btn btn-large">Cancel</a>
+                        <a href="<?php echo URL::route('admin.dealers.index'); ?>" class="btn btn-large">Cancel</a>
                 </div>
  
         <?php echo Form::close(); ?>

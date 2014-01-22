@@ -7,7 +7,22 @@ use App\Services\Validators\DealerValidator;
 use Input, Redirect, Sentry, Str;
  
 class DealersController extends \BaseController {
-        
+         
+         protected $manufacturer;
+        //protected $user;
+
+        /**
+        * Inject the models.
+        * @param Post $post
+        * @param User $user
+        */
+        public function __construct(Manufacturer $manufacturer)
+        {
+               // parent::__construct();
+
+                $this->manufacturer = $manufacturer;
+                //$this->user = $user;
+        }
 
         public function index()
         {
@@ -21,7 +36,12 @@ class DealersController extends \BaseController {
  
         public function create()
         {
-                return \View::make('admin.dealers.create');
+
+                foreach (Manufacturer::select('id', 'title')->orderBy('title','asc')->get() as $man)
+                {
+                        $manufacturer[$man->id] = $man->title;
+                }
+                return \View::make('admin.dealers.create', compact('manufacturer'));
         }
  
         public function store()
@@ -31,6 +51,7 @@ class DealersController extends \BaseController {
                         $dealer = new Dealer;
                         $dealer->title = Input::get('title');
                         $dealer->user_id = Sentry::getUser()->id;
+                        $dealer->manufacturer_id  = Input::get('manufacturer');
                         $dealer->save();
                         return Redirect::route('admin.dealers.index');
                 }
@@ -41,7 +62,12 @@ class DealersController extends \BaseController {
  
         public function edit($id)
         {
-                return \View::make('admin.dealers.edit')->with('dealer', Dealer::find($id));
+                $manufacturer_id = Dealer::find($id)->manufacturer_id;
+                foreach (Manufacturer::select('id', 'title')->orderBy('title','asc')->get() as $man)
+                {
+                        $manufacturer[$man->id] = $man->title;
+                }
+                return \View::make('admin.dealers.edit', compact('manufacturer', 'manufacturer_id'))->with('dealer', Dealer::find($id));
         }
  
         public function update($id)
@@ -51,6 +77,7 @@ class DealersController extends \BaseController {
                         $dealer = Dealer::find($id);
                         $dealer->title = Input::get('title');
                         $dealer->user_id = Sentry::getUser()->id;
+                        $dealer->manufacturer_id  = Input::get('manufacturer');
                         $dealer->save();
 
                         Notification::success('The page was saved.');

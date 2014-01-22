@@ -1,0 +1,71 @@
+ 
+<?php $__env->startSection('main'); ?>
+
+<div class="container">
+  <?php if ($profiles->count() < 3): ?> 
+  <div class="row button-row">
+    <div class="span12"> 
+      <p> 
+        <a href="<?php echo URL::route('customer.profiles.create'); ?>" class="btn btn-primary pull-left">Create a New Profile</a>
+      </p>
+    </div>
+    </div>        
+  <?php endif; ?>
+ <div class="row button-space">
+    <div class="span12"> 
+      <p> </p>
+     </div>
+  </div>    
+<?php $i=0;$j=0; ?>
+
+<?php if ($profiles->count() > 0): ?>
+<div class="row profile-row">
+    <div class="span12"> 
+      <div class="tabbable tabs-centre">
+        <ul class="nav nav-tabs">
+         <?php foreach ($profiles as $profile): ?>      
+          <li class=<?php echo $i == 0 ? "active" : ""; ?>><a href="#<?php echo $profile->title; ?>" data-toggle="tab"><?php echo $profile->title; ?></a></li>
+          <?php $i++; ?>     
+          <?php endforeach; ?>
+        </ul>
+        <div id='content' class="tab-content">
+                <?php foreach ($profiles as $profile): ?>   
+                      <div class="tab-pane <?php echo $j == 0 ? "active" : ""; ?>" id="<?php echo $profile->title; ?>">
+
+                             <table  class="table table-condensed table-striped table-hover">
+                                <tr>
+                                <td colspan="2">
+                                   <a href="<?php echo URL::route('customer.profiles.edit', $profile->id); ?>" class="btn btn-success btn-mini pull-left">Edit</a>
+                                                <?php echo Form::open(array('route' => array('customer.profiles.destroy', $profile->id), 'method' => 'delete', 'data-confirm' => 'Are you sure?')); ?>
+                                                        <button type="submit" href="<?php echo URL::route('customer.profiles.destroy', $profile->id); ?>" class="btn btn-danger btn-mini">Delete</butfon>
+                                                <?php echo Form::close(); ?>
+                                 </td>                       
+                                </tr>
+                              <tr>
+                                 <td>Primary Phone</td><td><?php echo $profile->primary_phone; ?></td>
+                              </tr>
+                              <tr>   
+                                 <td>Secondary Phone</td><td><?php echo $profile->secondary_phone; ?></td>
+                              </tr>
+                              <tr>   
+                                 <td>Address</td><td><?php echo $profile->address; ?></td>
+                              </tr>
+                              <tr>   
+                                 <td>City</td><td><?php echo $profile->city; ?></td>
+                              </tr> 
+                              <tr>  
+                                 <td>State</td><td><?php echo $profile->state; ?></td>
+                             </tr>
+                             </table>    
+                      </div>
+                   <?php $j++; ?>    
+                  <?php endforeach; ?>
+        </div>
+  </div>  
+  </div> <!-- End of span -->    
+</div> <!--End of Profile Row -->
+<?php endif; ?> 
+
+</div>        
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('customer._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

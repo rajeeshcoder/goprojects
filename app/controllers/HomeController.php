@@ -17,7 +17,7 @@ class HomeController extends BaseController {
 
 	public function getDashBoard()
 	{
-		return View::make('user.dashboard');
+		return View::make('customer.dashboard');
 	}
 
 }

@@ -1,0 +1,79 @@
+ 
+<?php $__env->startSection('main'); ?>
+ 
+        <div class="jumbotron">
+            <h3>Create a new Vehicle</h3>
+        </div>
+
+        <?php echo Notification::showAll(); ?>
+ 
+        <?php if ($errors->any()): ?>
+        <div class="alert alert-error">
+                <?php echo implode('<br>', $errors->all()); ?>
+        </div>
+        <?php endif; ?>
+ 
+        <?php echo Form::open(array('route' => 'customer.vehicles.store')); ?>
+
+
+               <div class="control-group">
+                        <?php echo Form::label('manufacturer', 'Manufacturer'); ?>
+                        <div class="controls">
+                                <?php echo Form::select('manufacturer', $manufacturer); ?>                
+                        </div>
+                </div>
+`
+                <div class="control-group">
+                        <?php echo Form::label('model', 'Model'); ?>
+                        <div class="controls">
+                                <?php echo Form::select('model', []); ?>                
+                        </div>
+                </div>
+   
+                <div class="control-group">
+                        <?php echo Form::label('reg_no', 'Registration No'); ?>
+                        <div class="controls">
+                                <?php echo Form::text('reg_no'); ?>
+                        </div>
+                </div>
+
+
+                <div class="control-group">
+                        <?php echo Form::label('engine_no', 'Engine No'); ?>
+                        <div class="controls">
+                                <?php echo Form::text('engine_no'); ?>
+                        </div>
+                </div>
+                
+                 <div class="control-group">
+                        <?php echo Form::label('chasis_no', 'Chasis No'); ?>
+                        <div class="controls">
+                                <?php echo Form::text('chasis_no'); ?>
+                        </div>
+                </div>        
+
+                <div class="control-group">
+                        <?php echo Form::label('color', 'Color'); ?>
+                        <div class="controls">
+                                <?php echo Form::text('color'); ?>
+                        </div>
+                </div>
+    
+
+                 <div class="control-group">
+                        <?php echo Form::label('regdate', 'Registration Date'); ?>
+                        <div class="controls">
+                        <?php echo Form::text('regdate', '', array('id' => 'datepicker')); ?>
+                        </div>
+                </div>       
+
+
+                <div class="form-actions">
+                        <?php echo Form::submit('Save', array('class' => 'btn btn-success btn-save btn-large')); ?>
+                        <a href="<?php echo URL::route('customer.vehicles.index'); ?>" class="btn btn-large">Cancel</a>
+                </div>
+ 
+        <?php echo Form::close(); ?>
+ 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('customer._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

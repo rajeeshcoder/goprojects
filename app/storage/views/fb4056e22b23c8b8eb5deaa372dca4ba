@@ -1,7 +1,9 @@
 <ul class="nav">
-	<li class="<?php echo Request::is('/*') ? 'active' : null; ?>"><a href="<?php echo URL::route('home'); ?>"><i class="icon-book"></i>Services</a></li>
+	<li class="<?php echo Request::is('/sevvices*') ? 'active' : null; ?>"><a href="<?php echo URL::route('services'); ?>"><i class="icon-book"></i>Services</a></li>
+	<li class="<?php echo Request::is('/vehicles*') ? 'active' : null; ?>"><a href="<?php echo URL::route('vehicles'); ?>"><i class="icon-book"></i>Vehicles</a></li>
+	<li class="<?php echo Request::is('/booking*') ? 'active' : null; ?>"><a href="<?php echo URL::route('vehicles'); ?>"><i class="icon-book"></i>Booking</a></li>
 	<?php if (Sentry::check() && Sentry::getUser()->hasAccess(['user']) ): ?>		
-		<li><i class="icon-user"></i>Logged in as: <?php echo Sentry::getUser()->email; ?></li>
+		<li><a href="#"><i class="icon-user"></i>Logged in as: <?php echo Sentry::getUser()->email; ?></a></li>
 		<li><a href="<?php echo URL::route('user.logout'); ?>"><i class="icon-lock"></i> Logout</a></li>
 	<?php endif; ?>		
 </ul>

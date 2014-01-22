@@ -9,7 +9,7 @@
                                 <th>Title</th>
                                 <th>Manufacturer</th>
                                 <th>When</th>
-                                <th><a href="{{ URL::route('admin.models.create') }}"><i class="icon-cog"></i></a></th>
+                                <th><a href="{{ URL::route('admin.dealers.create') }}" class="btn btn-primary btn-default pull-left">Create</a></th>
                         </tr>
                 </thead>
                 <tbody>

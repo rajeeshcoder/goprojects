@@ -9,4 +9,8 @@ class Model extends \Eloquent {
         return $this->belongsTo('App\Models\Manufacturer');
     }
  
+    public function customervehicles()
+    {
+        return $this->hasMany('App\Models\CustomerVehicle');
+    }
 }

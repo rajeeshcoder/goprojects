@@ -51,6 +51,15 @@ Route::filter('auth.admin', function()
     }
 });
 
+Route::filter('auth.customer', function()
+{
+	if (!Sentry::check() || !Sentry::getUser()->hasAccess(['customer']) ) {
+       return Redirect::route('customer.login');
+    }
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter

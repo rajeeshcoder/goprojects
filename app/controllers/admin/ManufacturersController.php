@@ -15,6 +15,17 @@ class ManufacturersController extends \BaseController {
                 return \View::make('admin.manufacturers.index')->with('manufacturers', Manufacturer::all());
         }
  
+        public function getListman() {
+                  $manufacturers = Manufacturer::all();    
+                  return \Response::json(array(
+                         'status'  => 'success',
+                         'message' => 'Manufacturers successfully loaded!',
+                         'manufacturers' => $manufacturers->toArray()),
+                          200
+                  );
+        }
+
+
         public function show($id)
         {
                 return \View::make('admin.manufacturers.show')->with('manufacturer', Manufacturers::find($id));

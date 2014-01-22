@@ -1,0 +1,33 @@
+ 
+<?php $__env->startSection('main'); ?>
+ 
+        <table class="table table-striped">
+                <thead>
+                        <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Dealer</th>
+                                <th>When</th>
+                                <th><a href="<?php echo URL::route('admin.service_centers.create'); ?>" class="btn btn-primary btn-default pull-left">Create</a></th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <?php foreach ($service_centers as $service_center): ?>
+                                <tr>
+                                        <td><?php echo $service_center->id; ?></td>
+                                        <td><a href="<?php echo URL::route('admin.service_centers.show', $service_center->id); ?>"><?php echo $service_center->title; ?></a></td>
+                                        <td><?php echo $service_center->dealer->title; ?></td>
+                                        <td><?php echo $service_center->created_at; ?></td>
+                                        <td>
+                                                <a href="<?php echo URL::route('admin.service_centers.edit', $service_center->id); ?>" class="btn btn-success btn-mini pull-left">Edit</a>
+                                                <?php echo Form::open(array('route' => array('admin.service_centers.destroy', $service_center->id), 'method' => 'delete', 'data-confirm' => 'Are you sure?')); ?>
+                                                        <button type="submit" href="<?php echo URL::route('admin.service_centers.destroy', $service_center->id); ?>" class="btn btn-danger btn-mini">Delete</butfon>
+                                                <?php echo Form::close(); ?>
+                                        </td>
+                                </tr>
+                        <?php endforeach; ?>
+                </tbody>
+        </table>
+ 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

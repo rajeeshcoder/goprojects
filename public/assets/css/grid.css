@@ -1,0 +1,6 @@
+.span2 > div, .span2 > div
+{
+   background-color:#eee;
+   border: 1px solid #888;
+   border-radius:3px;
+}
