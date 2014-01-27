@@ -25,7 +25,7 @@
     <div class="span12"> 
       <div class="tabbable tabs-centre">
         <ul class="nav nav-tabs">
-         @foreach ($vehicles as $vehicle)      
+         @foreach ($vehicles as $vehicle)    
           <li class={{ $i == 0 ? "active" : ""}}><a href="#{{ $vehicle->id }}" data-toggle="tab">{{ $vehicle->reg_no }}</a></li>
           <?php $i++; ?>     
           @endforeach

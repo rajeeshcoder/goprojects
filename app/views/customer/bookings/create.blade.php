@@ -17,6 +17,17 @@
         {{ Form::open(array('route' => 'customer.bookings.postbook')) }}
 
                 <div class="control-group">
+                        {{ Form::label('profile', 'Select a Profile') }}
+                        <div class="controls">
+                            @foreach ($customer_profiles as $key => $profile)
+                                <?php $checkvalue = $key == 0 ? 'true' : ''; ?>
+                                {{ Form::radio('customer_profile', $profile->id, $checkvalue) }} {{$profile->title}}
+                            @endforeach
+                        </div>
+                </div>
+
+
+                <div class="control-group">
                         {{ Form::label('total_km', 'Total Run-in KiloMeter') }}
                         <div class="controls">
                                 {{ Form::text('total_km') }}

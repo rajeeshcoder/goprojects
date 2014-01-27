@@ -1,28 +1,37 @@
  
 <?php $__env->startSection('main'); ?>
  
-        <table class="table table-striped">
-                <thead>
-                        <tr>
-                                <th>#</th>
-                                <th>Location</th>
-                                <th>Dealer</th>
-                                <th>When</th>
-                        </tr>
-                </thead>
-                <tbody>
-                        <?php foreach ($service_centers as $service_center): ?>
-                                <tr>
-                                        <td><?php echo $service_center->id; ?></td>
-                                        <td><?php echo $service_center->dealer->title; ?></td>
-                                        <td><?php echo $service_center->created_at; ?></td>
-                                        <td>
-                                                <a href="<?php echo URL::route('customer.bookings.book', $service_center->id); ?>" class="btn btn-pri btn-large pull-right">Book</a>
-                                        </td>
-                                </tr>
+<table class="table table-striped">
+<thead>
+        <tr>
+                <th>#</th>
+                <th>Dealer</th>
+                <th>Location</th>
+                <th>Model</th>
+                <th>Vehicle</th>
+                <th>Service Date</th>
+        </tr>
+</thead>
+<tbody>
+<?php foreach ($bookings as $booking): ?>
+        <tr>
+                <td><?php echo $booking->id; ?></td>
+                <td><?php echo $booking->servicecenter->dealer->title; ?></td>
+                <td><?php echo $booking->servicecenter->title; ?></td>
+                <td><?php echo $booking->customervehicle->model->title; ?></td>
+                <td><?php echo $booking->customervehicle->reg_no; ?></td>
+                <td><?php echo $booking->servicedate; ?></td>
+                <td>
+                        <?php foreach($buttons["$booking->id"] as $button): ?>
+                                <a href="<?php echo URL::route("customer.bookings.$button", $booking->id); ?>" class="btn btn-pri btn-small pull-right"><?php echo $button; ?></a>
+                                <?php echo $button; ?>
                         <?php endforeach; ?>
-                </tbody>
-        </table>
- 
+
+                </td>
+        </tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('customer._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

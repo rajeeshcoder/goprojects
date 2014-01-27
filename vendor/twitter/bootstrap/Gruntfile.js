@@ -1,4 +1,10 @@
 /* jshint node: true */
+/*!
+ * Bootstrap's Gruntfile
+ * http://getbootstrap.com
+ * Copyright 2013-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
 
 module.exports = function (grunt) {
   'use strict';
@@ -7,14 +13,14 @@ module.exports = function (grunt) {
   grunt.util.linefeed = '\n';
 
   RegExp.quote = function (string) {
-    return string.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&')
-  }
+    return string.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+  };
 
-  var BsLessdocParser = require('./docs/grunt/bs-lessdoc-parser.js')
-  var fs = require('fs')
-  var generateGlyphiconsData = require('./docs/grunt/bs-glyphicons-data-generator.js')
-  var generateRawFilesJs = require('./docs/grunt/bs-raw-files-generator.js')
-  var path = require('path')
+  var fs = require('fs');
+  var path = require('path');
+  var generateGlyphiconsData = require('./docs/grunt/bs-glyphicons-data-generator.js');
+  var BsLessdocParser = require('./docs/grunt/bs-lessdoc-parser.js');
+  var generateRawFilesJs = require('./docs/grunt/bs-raw-files-generator.js');
 
   // Project configuration.
   grunt.initConfig({
@@ -36,7 +42,7 @@ module.exports = function (grunt) {
 
     // Task configuration.
     clean: {
-      dist: ['dist']
+      dist: 'dist'
     },
 
     jshint: {
@@ -47,16 +53,16 @@ module.exports = function (grunt) {
         src: 'Gruntfile.js'
       },
       src: {
-        src: ['js/*.js']
+        src: 'js/*.js'
       },
       test: {
-        src: ['js/tests/unit/*.js']
+        src: 'js/tests/unit/*.js'
       },
       assets: {
         src: ['docs/assets/js/application.js', 'docs/assets/js/customizer.js']
       },
       docsGrunt: {
-        src: ['docs/grunt/*.js']
+        src: 'docs/grunt/*.js'
       }
     },
 
@@ -65,19 +71,19 @@ module.exports = function (grunt) {
         config: 'js/.jscs.json',
       },
       gruntfile: {
-        src: ['Gruntfile.js']
+        src: 'Gruntfile.js'
       },
       src: {
-        src: ['js/*.js']
+        src: 'js/*.js'
       },
       test: {
-        src: ['js/tests/unit/*.js']
+        src: 'js/tests/unit/*.js'
       },
       assets: {
         src: ['docs/assets/js/application.js', 'docs/assets/js/customizer.js']
       },
       docsGrunt: {
-        src: ['docs/grunt/*.js']
+        src: 'docs/grunt/*.js'
       }
     },
 
@@ -122,32 +128,32 @@ module.exports = function (grunt) {
           banner: '<%= banner %>',
           report: 'min'
         },
-        src: ['<%= concat.bootstrap.dest %>'],
+        src: '<%= concat.bootstrap.dest %>',
         dest: 'dist/js/<%= pkg.name %>.min.js'
       },
       customize: {
         options: {
-          banner: '<%= bannerDocs %>',
+          preserveComments: 'some',
           report: 'min'
         },
         src: [
-          'docs/assets/js/less.min.js',
-          'docs/assets/js/jszip.js',
-          'docs/assets/js/uglify.js',
-          'docs/assets/js/blob.js',
-          'docs/assets/js/filesaver.js',
-          'docs/assets/js/raw-files.js',
+          'docs/assets/js/vendor/less.min.js',
+          'docs/assets/js/vendor/jszip.js',
+          'docs/assets/js/vendor/uglify.min.js',
+          'docs/assets/js/vendor/blob.js',
+          'docs/assets/js/vendor/filesaver.js',
+          'docs/assets/js/raw-files.min.js',
           'docs/assets/js/customizer.js'
         ],
         dest: 'docs/assets/js/customize.min.js'
       },
       docsJs: {
         options: {
-          banner: '<%= bannerDocs %>',
+          preserveComments: 'some',
           report: 'min'
         },
         src: [
-          'docs/assets/js/holder.js',
+          'docs/assets/js/vendor/holder.js',
           'docs/assets/js/application.js'
         ],
         dest: 'docs/assets/js/docs.min.js'
@@ -194,9 +200,8 @@ module.exports = function (grunt) {
     cssmin: {
       compress: {
         options: {
-          banner: '<%= bannerDocs %>',
           keepSpecialComments: '*',
-          noAdvanced: true, // turn advanced optimizations off until it's fixed in clean-css
+          noAdvanced: true, // turn advanced optimizations off until the issue is fixed in clean-css
           report: 'min',
           selectorsMergeMode: 'ie8'
         },
@@ -231,8 +236,8 @@ module.exports = function (grunt) {
           config: 'less/.csscomb.json'
         },
         files: {
-          'dist/css/<%= pkg.name %>.css': ['dist/css/<%= pkg.name %>.css'],
-          'dist/css/<%= pkg.name %>-theme.css': ['dist/css/<%= pkg.name %>-theme.css']
+          'dist/css/<%= pkg.name %>.css': 'dist/css/<%= pkg.name %>.css',
+          'dist/css/<%= pkg.name %>-theme.css': 'dist/css/<%= pkg.name %>-theme.css'
         }
       }
     },
@@ -240,7 +245,7 @@ module.exports = function (grunt) {
     copy: {
       fonts: {
         expand: true,
-        src: ['fonts/*'],
+        src: 'fonts/*',
         dest: 'dist/'
       },
       docs: {
@@ -259,7 +264,7 @@ module.exports = function (grunt) {
       options: {
         inject: 'js/tests/unit/phantom.js'
       },
-      files: ['js/tests/*.html']
+      files: 'js/tests/*.html'
     },
 
     connect: {
@@ -287,7 +292,8 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          'docs/_includes/customizer-variables.html': 'docs/customizer-variables.jade'
+          'docs/_includes/customizer-variables.html': 'docs/customizer-variables.jade',
+          'docs/_includes/nav-customize.html': 'docs/customizer-nav.jade'
         }
       }
     },
@@ -304,7 +310,7 @@ module.exports = function (grunt) {
         ]
       },
       files: {
-        src: ['_gh_pages/**/*.html']
+        src: '_gh_pages/**/*.html'
       }
     },
 
@@ -319,15 +325,15 @@ module.exports = function (grunt) {
       },
       less: {
         files: 'less/*.less',
-        tasks: ['less']
+        tasks: 'less'
       }
     },
 
     sed: {
       versionNumber: {
         pattern: (function () {
-          var old = grunt.option('oldver')
-          return old ? RegExp.quote(old) : old
+          var old = grunt.option('oldver');
+          return old ? RegExp.quote(old) : old;
         })(),
         replacement: grunt.option('newver'),
         recursive: true
@@ -338,7 +344,7 @@ module.exports = function (grunt) {
       all: {
         options: {
           build: process.env.TRAVIS_JOB_ID,
-          concurrency: 3,
+          concurrency: 10,
           urls: ['http://127.0.0.1:3000/js/tests/index.html'],
           browsers: grunt.file.readYAML('test-infra/sauce_browsers.yml')
         }
@@ -349,6 +355,7 @@ module.exports = function (grunt) {
 
   // These plugins provide necessary tasks.
   require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
+  grunt.loadNpmTasks('browserstack-runner');
 
   // Docs HTML validation task
   grunt.registerTask('validate-html', ['jekyll', 'validation']);
@@ -357,18 +364,24 @@ module.exports = function (grunt) {
   var testSubtasks = [];
   // Skip core tests if running a different subset of the test suite
   if (!process.env.TWBS_TEST || process.env.TWBS_TEST === 'core') {
-    testSubtasks = testSubtasks.concat(['dist-css', 'csslint', 'jshint', 'jscs', 'qunit', 'build-customizer-vars-form']);
+    testSubtasks = testSubtasks.concat(['dist-css', 'csslint', 'jshint', 'jscs', 'qunit', 'build-customizer-html']);
   }
   // Skip HTML validation if running a different subset of the test suite
   if (!process.env.TWBS_TEST || process.env.TWBS_TEST === 'validate-html') {
     testSubtasks.push('validate-html');
   }
   // Only run Sauce Labs tests if there's a Sauce access key
-  if (typeof process.env.SAUCE_ACCESS_KEY !== 'undefined'
+  if (typeof process.env.SAUCE_ACCESS_KEY !== 'undefined' &&
       // Skip Sauce if running a different subset of the test suite
-      && (!process.env.TWBS_TEST || process.env.TWBS_TEST === 'sauce-js-unit')) {
+      (!process.env.TWBS_TEST || process.env.TWBS_TEST === 'sauce-js-unit')) {
     testSubtasks.push('connect');
     testSubtasks.push('saucelabs-qunit');
+  }
+  // Only run BrowserStack tests if there's a BrowserStack access key
+  if (typeof process.env.BROWSERSTACK_KEY !== 'undefined' &&
+      // Skip BrowserStack if running a different subset of the test suite
+      (!process.env.TWBS_TEST || process.env.TWBS_TEST === 'browserstack-js-unit')) {
+    testSubtasks.push('browserstack_runner');
   }
   grunt.registerTask('test', testSubtasks);
 
@@ -379,7 +392,7 @@ module.exports = function (grunt) {
   grunt.registerTask('dist-css', ['less', 'cssmin', 'csscomb', 'usebanner']);
 
   // Docs distribution task.
-  grunt.registerTask('dist-docs', ['copy:docs']);
+  grunt.registerTask('dist-docs', 'copy:docs');
 
   // Full distribution task.
   grunt.registerTask('dist', ['clean', 'dist-css', 'copy:fonts', 'dist-docs', 'dist-js']);
@@ -390,12 +403,15 @@ module.exports = function (grunt) {
   // Version numbering task.
   // grunt change-version-number --oldver=A.B.C --newver=X.Y.Z
   // This can be overzealous, so its changes should always be manually reviewed!
-  grunt.registerTask('change-version-number', ['sed']);
+  grunt.registerTask('change-version-number', 'sed');
 
   grunt.registerTask('build-glyphicons-data', generateGlyphiconsData);
 
   // task for building customizer
-  grunt.registerTask('build-customizer', ['build-customizer-vars-form', 'build-raw-files']);
-  grunt.registerTask('build-customizer-vars-form', ['jade']);
-  grunt.registerTask('build-raw-files', 'Add scripts/less files to customizer.', generateRawFilesJs);
+  grunt.registerTask('build-customizer', ['build-customizer-html', 'build-raw-files']);
+  grunt.registerTask('build-customizer-html', 'jade');
+  grunt.registerTask('build-raw-files', 'Add scripts/less files to customizer.', function () {
+    var banner = grunt.template.process('<%= banner %>');
+    generateRawFilesJs(banner);
+  });
 };

@@ -3,7 +3,7 @@
 class ModelTableSeeder extends Seeder {
  
   public function run()
-  {
+  {/*
   		$models = [
   			['title' => 'Palio', 'manufacturer_id' => 2],
   			['title' => 'Punto' , 'manufacturer_id' => 2], 
@@ -12,7 +12,7 @@ class ModelTableSeeder extends Seeder {
   			['title' => 'Alto', 'manufacturer_id' => 1],
   			['title' => 'SX4', 'manufacturer_id' => 1]
   		];
-  
+  */
   		DB::table('models')->insert($models);
   }
  

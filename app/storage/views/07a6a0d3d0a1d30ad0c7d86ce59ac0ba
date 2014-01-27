@@ -16,6 +16,17 @@
         <?php echo Form::open(array('route' => 'customer.bookings.postbook')); ?>
 
                 <div class="control-group">
+                        <?php echo Form::label('profile', 'Select a Profile'); ?>
+                        <div class="controls">
+                            <?php foreach ($customer_profiles as $key => $profile): ?>
+                                <?php $checkvalue = $key == 0 ? 'true' : ''; ?>
+                                <?php echo Form::radio('customer_profile', $profile->id, $checkvalue); ?> <?php echo $profile->title; ?>
+                            <?php endforeach; ?>
+                        </div>
+                </div>
+
+
+                <div class="control-group">
                         <?php echo Form::label('total_km', 'Total Run-in KiloMeter'); ?>
                         <div class="controls">
                                 <?php echo Form::text('total_km'); ?>

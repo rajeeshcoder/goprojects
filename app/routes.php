@@ -50,9 +50,14 @@ Route::group(array('prefix' => 'customer', 'before' => 'auth.customer'), functio
 	Route::resource('bookings', 'App\Controllers\Customer\BookingsController');
 
     Route::get('customer/bookings/book/{id}', array('as' => 'customer.bookings.book', 'uses' => 'App\Controllers\Customer\BookingsController@getBook'));
-    Route::post('customer/bookings/book{id}', array('as' => 'customer.bookings.postbook', 'uses' => 'App\Controllers\Customer\BookingsController@postBook'));
+        Route::post('customer/bookings/book{id}', array('as' => 'customer.bookings.postbook', 'uses' => 'App\Controllers\Customer\BookingsController@postBook'));
     Route::controller('bookings', 'App\Controllers\Customer\BookingsController');
+    Route::get('customer/bookings/status/{id}', array('as' => 'customer.bookings.status', 'uses' => 'App\Controllers\Customer\BookingsController@getStatus'));
+    Route::get('customer/bookings/cancel/{id}', array('as' => 'customer.bookings.cancel', 'uses' => 'App\Controllers\Customer\BookingsController@getCancel'));
+    Route::get('customer/bookings/modify/{id}', array('as' => 'customer.bookings.modify', 'uses' => 'App\Controllers\Customer\BookingsController@getModify'));
     //Route::any('/bookings', 'App\Contrsidollers\Customer\BookingsController@getCenter');
+
 });
+
 
 Route::get('/api/main/models/id/{id}', 'App\Controllers\Api\MainController@getModels');

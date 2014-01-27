@@ -1,4 +1,10 @@
 /* jshint node: true */
+/*!
+ * Bootstrap Grunt task for parsing Less docstrings
+ * http://getbootstrap.com
+ * Copyright 2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
 
 var markdown = require('markdown').markdown;
 
@@ -12,6 +18,8 @@ function markdown2html(markdownString) {
 Mini-language:
   //== This is a normal heading, which starts a section. Sections group variables together.
   //## Optional description for the heading
+
+  //=== This is a subheading.
 
   //** Optional description for the following variable. You **can** use Markdown in descriptions to discuss `<html>` stuff.
   @foo: #ffff;
@@ -39,7 +47,7 @@ function Section(heading, customizable) {
 
 Section.prototype.addSubSection = function (subsection) {
   this.subsections.push(subsection);
-}
+};
 
 function SubSection(heading) {
   this.heading = heading.trim();

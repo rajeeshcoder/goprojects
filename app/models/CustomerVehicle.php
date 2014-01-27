@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Model;
+use App\Models\CustomerBooking;
 use Carbon\Carbon;
  
 class CustomerVehicle extends \Eloquent {
@@ -13,9 +14,14 @@ class CustomerVehicle extends \Eloquent {
         return $this->belongsTo('App\Models\User');
     }
  
-     public function model()
+    public function model()
     {
         return $this->belongsTo('App\Models\Model');
+    }
+
+    public function customerbookings()
+    {
+        return $this->hasMany('App\Models\CustomerBooking', 'vehicle_id', 'id');
     }
 
  	public function setRegDateAttribute($value)

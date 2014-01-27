@@ -9,7 +9,7 @@
 	@if (Sentry::check() && Sentry::getUser()->hasAccess(['customer']) )
 		<li class="{{ Request::is('customer/profile*') ? 'active' : null }}"><a href="{{ URL::route('customer.profiles.index') }}"><i class="icon-user"></i>Profile</a></li>
 		<li class="{{ Request::is('customer/vehicles*') ? 'active' : null }}"><a href="{{ URL::route('customer.vehicles.index') }}"><i class="icon-move"></i>Vehicles</a></li>
-		<li class="{{ Request::is('customer/booking*') ? 'active' : null }}"><a href="{{ URL::route('customer.vehicles.index') }}"><i class="icon-road"></i>Booking</a></li>
+		<li class="{{ Request::is('customer/bookings*') ? 'active' : null }}"><a href="{{ URL::route('customer.bookings.index') }}"><i class="icon-road"></i>Booking</a></li>
 		<li class="{{ Request::is('customer/services*') ? 'active' : null }}"><a href="{{ URL::route('customer.services.index') }}"><i class="icon-pencil"></i>Services</a></li>
 	@else 
        <li>{{ HTML::link('customer/register', 'Register') }}</li>  
