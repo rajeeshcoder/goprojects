@@ -4,12 +4,11 @@ use Notification;
 use App\Models\User;
 use App\Models\Manufacturer;
 use App\Models\Model;
+use App\Models\CustomerBooking;
 use App\Models\CustomerVehicle;
 use App\Models\CustomerProfile;
-use App\Models\CustomerBooking;
 
-
-use App\Services\Validators\CustomerVehicleValidator;
+use App\Services\Validators\CustomerBookingValidator;
 use Ruler\Context;
 use App\Services\Rules\CustomerBookingRule;
 use Input, Redirect, Sentry, Str, Session;
@@ -54,7 +53,6 @@ class BookingsController extends \BaseController {
            $status_msg = [];
 
 
-
            foreach($bookings as $booking) {
 
                 $customer_booking = CustomerBooking::find($booking->id);
@@ -63,8 +61,7 @@ class BookingsController extends \BaseController {
 
 
             $booking_status = $customer_booking->customerbookingstatus()
-                             ->where('booking_status.user_id', '=', $booking->user_id)
-                                 ->Where('booking_status.customer_booking_id', '=', $booking->id)->get()->last();
+                                 ->where('booking_status.customer_booking_id', '=', $booking->id)->get()->last();
 
             $status_msg["$booking->id"] = $booking_status;                  
 
@@ -113,7 +110,7 @@ class BookingsController extends \BaseController {
 	public function getCenter($vehicle_id, $model_id)
 	{
 		//var_dump($vehicle_id, $model_id);
-		//$user = CustomerVehicle::where('user_id', Sentry::getUser()->id);
+		//$user = CustomerBooking::where('user_id', Sentry::getUser()->id);
         //$service_centers = Manufacturer::with(array('dealers', 'dealers.service_centers'))->find($man_id->manufacturer_id)->get(array('id', 'title'));
         //$service_centers = Manufacturer::with('service_centers')->find($man_id->manufacturer_id)->get(array('id', 'title'));
 		//$service_centers = Manufacturer::where($man_id);
@@ -148,12 +145,61 @@ class BookingsController extends \BaseController {
         $user_booking->total_km = Input::get('total_km');
         $user_booking->service_type = Input::get('service_type');
         $user_booking->service_dispatch = Input::get('service_dispatch');
-        $user_booking->service_date = Input::get('service_date') . " 09:00:00";
+        $user_booking->servicedate = Input::get('servicedate') . " 09:00:00";
         $user_booking->save();
         Session::forget('vehicle_id');
         Session::forget('service_center_id');
 
         return Redirect::route('customer.vehicles.index');
+    }    
+
+     public function edit($id)
+        {
+                $booking = CustomerBooking::find($id);
+                $customer_profiles = CustomerProfile::where('user_id', Sentry::getUser()->id)->get(array('id', 'title'));
+                //$model_id = CustomerBooking::find($id)->model_id;
+               // foreach (Model::select('id', 'title')->where('manufacturer_id', $man_id)->orderBy('title','asc')->get() as $mod)
+               // {
+                  //      $model[$mod->id] = $mod->title;
+               // }
+               
+                return \View::make('customer.bookings.edit', compact('booking', 'customer_profiles'));
+                //return \View::make('customer.vehicles.edit')->with('vehicle', CustomerBooking::find($id));
+                
+        }
+ 
+        public function update($id)
+        {
+               
+                $validation = new CustomerBookingValidator;
+                if ($validation->passes()) {
+                   $customer_booking = CustomerBooking::find($id);
+                   $customer_booking->user_id = Sentry::getUser()->id;
+                   $customer_booking->customer_profile_id = Input::get('customer_profile');
+                   $customer_booking->total_km = Input::get('total_km');
+                   $customer_booking->service_type = Input::get('service_type');
+                   $customer_booking->service_dispatch = Input::get('service_dispatch');
+                   $customer_booking->servicedate = Input::get('servicedate') . " 09:00:00";
+                   $customer_booking->save();
+
+                   $customer_booking->customerbookingstatus()->attach(2, array('owner' => 'c', 'user_id' => "$customer_booking->user_id"));
+                   
+                   Notification::success('The page was saved.');
+                 
+                   return Redirect::route('customer.bookings.index'); 
+                   
+                }
+                else {
+                    return Redirect::back()->withInput()->withErrors($validation->errors);
+                }
+                
+        }       
+
+    public function getConfirm($id)
+    {
+        $customer_booking = CustomerBooking::find($id);
+        $customer_booking->customerbookingstatus()->attach(5, array('owner' => 'c', 'user_id' => Sentry::getUser()->id));
+        return Redirect::route('customer.bookings.index');
     }    
 
     public function destroy($id)

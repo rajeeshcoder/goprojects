@@ -20,6 +20,12 @@ class CustomerBooking extends \Eloquent {
            // $post->created_by = Auth::user()->id;
            // $post->updated_by = Auth::user()->id;
         });
+        static::updated(function($booking)
+        {
+            //$booking->customerbookingstatus()->attach(1, array('owner' => 's', 'user_id' => "$booking->user_id"));
+           // $post->created_by = Auth::user()->id;
+           // $post->updated_by = Auth::user()->id;
+        });
     }
     
     public function user()

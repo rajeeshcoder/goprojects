@@ -56,4 +56,11 @@ class User extends \Cartalyst\Sentry\Users\Eloquent\User implements UserInterfac
                 return $this->hasMany('App\Models\CustomerProfile');
         }
 
+        public function servicecenters()
+        {
+        return $this->belongsToMany('App\Models\ServiceCenter', 'user_service', 
+                'user_id', 'service_center_id')->withTimestamps();;
+        }
+
+
 }

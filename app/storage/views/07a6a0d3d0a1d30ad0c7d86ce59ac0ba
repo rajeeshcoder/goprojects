@@ -51,7 +51,7 @@
                 <div class="control-group">
                         <?php echo Form::label('service_date', 'Service Date'); ?>
                         <div class="controls">
-                        <?php echo Form::text('service_date', '', array('id' => 'datepicker')); ?>
+                        <?php echo Form::text('servicedate', '', array('id' => 'datepicker')); ?>
                         </div>
                 </div>       
 

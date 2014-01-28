@@ -11,7 +11,14 @@ class AuthController extends BaseController {
          */
         public function getLogin()
         {
-                return View::make('customer.auth.login');
+             if ( ! Sentry::check()) {
+                 return View::make('customer.auth.login');
+            }
+            else {
+                 return Redirect::route('home');
+            }
+
+
         }
  
         /**
@@ -59,7 +66,13 @@ class AuthController extends BaseController {
         }
  
         public function getRegister() {
+            if ( ! Sentry::check()) {
                  return View::make('customer.auth.register');
+            }
+            else {
+                 return Redirect::route('home');
+            }
+
         }
         public function postRegister() {
                  $validator = new CustomerRegisterValidator;  

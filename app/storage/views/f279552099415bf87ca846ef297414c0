@@ -1,0 +1,25 @@
+ 
+<?php $__env->startSection('main'); ?>
+ 
+        <table class="table table-striped">
+                <thead>
+                        <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>When</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <?php foreach ($service_centers as $service_center): ?>
+                                <tr>
+                                        <td><?php echo $service_center->id; ?></td>
+                                        <td><a href="<?php echo URL::route('dealer.centers.bookings', $service_center->id); ?>"><?php echo $service_center->title; ?></a></td>
+                                        <td>
+                                        </td>
+                                </tr>
+                        <?php endforeach; ?>
+                </tbody>
+        </table>
+ 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('dealer._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

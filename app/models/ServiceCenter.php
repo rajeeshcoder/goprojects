@@ -17,4 +17,9 @@ class ServiceCenter extends \Eloquent {
         return $this->hasMany('App\Models\CustomerBooking', 'service_center_id', 'id');
     }
  
+ 	public function dealers()
+    {
+        return $this->belongsToMany('App\Models\User', 'user_service', 
+                'user_id', 'service_center_id')->withTimestamps();;
+    }
 }

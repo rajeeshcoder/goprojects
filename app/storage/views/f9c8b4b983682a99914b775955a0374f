@@ -1,0 +1,10 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="brand" href="<?php echo URL::route('dealer.centers.index'); ?>">Dealer</a>
+			<?php echo $__env->make('dealer._partials.navigation', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		</div>
+	</div>
+</div>
+
+<hr>

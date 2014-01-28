@@ -1,0 +1,50 @@
+ 
+<?php $__env->startSection('main'); ?>
+ 
+<table class="table table-striped">
+<thead>
+        <tr>
+                <th>#</th>
+                <th>Current Status</th>
+                <th>Dealer</th>
+                <th>Location</th>
+                <th>Model</th>
+                <th>Vehicle</th>
+                <th>Service Date</th>
+        </tr>
+</thead>
+<tbody>
+<?php foreach ($bookings as $booking): ?>
+        <tr>
+                <td><?php echo $booking->id; ?></td>
+                <td><?php echo $status_msg["$booking->id"]->title; ?></td>
+                <td><?php echo $booking->servicecenter->dealer->title; ?></td>
+                <td><?php echo $booking->servicecenter->title; ?></td>
+                <td><?php echo $booking->customervehicle->model->title; ?></td>
+                <td><?php echo $booking->customervehicle->reg_no; ?></td>
+                <td><?php echo $booking->servicedate; ?></td>
+                        <?php if( $buttons[$booking->id] && sizeof($buttons[$booking->id]) > 1): ?>
+                                <?php foreach($buttons[$booking->id] as $button): ?>
+                                        <td>
+                                        <?php if(preg_match("/cancel/i", $button, $match)): ?> 
+                                                <?php echo Form::open(array('route' => array('dealer.bookings.destroy', $booking->id), 'method' => 'delete', 'data-confirm' => 'Are you sure to cancel this booking?')); ?>
+                                                        <button type="submit" href="<?php echo URL::route('dealer.bookings.destroy', $booking->id); ?>" class="btn btn-danger btn-mini">Cancel</button>
+                                                <?php echo Form::close(); ?>
+                                        <?php elseif(preg_match("/approve/i", $button, $match)): ?> 
+                                                <?php echo Form::open(array('route' => array('dealer.bookings.approve', $booking->id), 'method' => 'get', 'data-confirm' => 'Are you sure to Confirm this booking?')); ?>
+                                                        <button type="submit" href="<?php echo URL::route('dealer.bookings.approve', $booking->id); ?>" class="btn btn-success btn-mini">Approve</button>
+                                                <?php echo Form::close(); ?>       
+                                        <?php else: ?>              
+                                                <a href="<?php echo URL::route("dealer.bookings.edit", $booking->id); ?>" class="btn btn-info btn-small"><?php echo $button; ?></a>
+                                        <?php endif; ?>
+                                 </td>       
+                                <?php endforeach; ?>
+                        <?php endif; ?>                
+                
+        </tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('dealer._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

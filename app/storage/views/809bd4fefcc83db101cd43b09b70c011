@@ -23,15 +23,20 @@
                 <td><?php echo $booking->customervehicle->model->title; ?></td>
                 <td><?php echo $booking->customervehicle->reg_no; ?></td>
                 <td><?php echo $booking->servicedate; ?></td>
-                        <?php if( $buttons[$booking->id] && sizeof($buttons[$booking->id]) > 1): ?>
+                        <?php if( $buttons[$booking->id] && sizeof($buttons[$booking->id]) > 0): ?>
                                 <?php foreach($buttons[$booking->id] as $button): ?>
+                                        <?php echo var_dump($button); ?>
                                         <td>
                                         <?php if(preg_match("/cancel/i", $button, $match)): ?> 
                                                 <?php echo Form::open(array('route' => array('customer.bookings.destroy', $booking->id), 'method' => 'delete', 'data-confirm' => 'Are you sure to cancel this booking?')); ?>
                                                         <button type="submit" href="<?php echo URL::route('customer.bookings.destroy', $booking->id); ?>" class="btn btn-danger btn-mini">Cancel Booking</button>
                                                 <?php echo Form::close(); ?>
+                                        <?php elseif(preg_match("/confirm/i", $button, $match)): ?> 
+                                                <?php echo Form::open(array('route' => array('customer.bookings.confirm', $booking->id), 'method' => 'get', 'data-confirm' => 'Are you sure to Confirm this booking?')); ?>
+                                                        <button type="submit" href="<?php echo URL::route('customer.bookings.confirm', $booking->id); ?>" class="btn btn-success btn-mini">Confirm Booking</button>
+                                                <?php echo Form::close(); ?>       
                                         <?php else: ?>
-                                                <a href="<?php echo URL::route("customer.bookings.$button", $booking->id); ?>" class="btn btn-pri btn-small pull-right"><?php echo $button; ?></a>
+                                                <a href="<?php echo URL::route("customer.bookings.edit", $booking->id); ?>" class="btn btn-pri btn-small pull-right"><?php echo $button; ?></a>
                                         <?php endif; ?>
                                  </td>       
                                 <?php endforeach; ?>

@@ -12,7 +12,8 @@
         </div>
         @endif
  
-        {{ Form::model($vehicle, array('method' => 'put', 'route' => array('customer.vehicles.update', $vehicle->id))) }}
+       
+        {{ Form::model($booking, array('method' => 'put', 'route' => array('customer.vehicles.update', $booking->id))) }}
  
                <div class="control-group">
                     Manufacturer : <b>{{ $vehicle->model->manufacturer->title }}</b>

@@ -58,7 +58,12 @@ Route::filter('auth.customer', function()
     }
 });
 
-
+Route::filter('auth.dealer', function()
+{
+	if (!Sentry::check() || !Sentry::getUser()->hasAnyAccess(['view']) ) {
+       return Redirect::route('dealer.login');
+    }
+});
 
 /*
 |--------------------------------------------------------------------------

@@ -14,7 +14,7 @@ class CustomerBookingRule extends BookingRule {
 							);
 	protected $rule_timing = array( "cancel"  => "12", 
 									"modify"  => "24", 
-									"confirm" => "12" ,
+									"confirm" => "12",
 									);
 
 	function __construct()

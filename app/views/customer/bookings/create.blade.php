@@ -52,7 +52,7 @@
                 <div class="control-group">
                         {{ Form::label('service_date', 'Service Date') }}
                         <div class="controls">
-                        {{ Form::text('service_date', '', array('id' => 'datepicker')) }}
+                        {{ Form::text('servicedate', '', array('id' => 'datepicker')) }}
                         </div>
                 </div>       
 
