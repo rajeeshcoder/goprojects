@@ -12,7 +12,9 @@ class CustomerBookingStatus extends \Eloquent {
  
  	public function customerbookings()
     {
-        return $this->belongsToMany('App\Models\CustomerBooking', 'booking_status', 'customer_booking_status_id', 'customer_booking_id')->withPivot('owner')->withTimestamps();;
+        return $this->belongsToMany('App\Models\CustomerBooking', 'booking_status', 
+        	'customer_booking_status_id', 'customer_booking_id')
+        	->withPivot('owner')->withPivot('user_id')->withTimestamps();;
     }
 
 }

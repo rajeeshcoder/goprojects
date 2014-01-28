@@ -16,7 +16,7 @@ class CustomerBooking extends \Eloquent {
 
         static::created(function($booking)
         {
-            $booking->customerbookingstatus()->attach(1, array('owner' => 's'));
+            $booking->customerbookingstatus()->attach(1, array('owner' => 's', 'user_id' => "$booking->user_id"));
            // $post->created_by = Auth::user()->id;
            // $post->updated_by = Auth::user()->id;
         });
@@ -48,7 +48,8 @@ class CustomerBooking extends \Eloquent {
 
     public function customerbookingstatus()
     {
-        return $this->belongsToMany('App\Models\CustomerBookingStatus', 'booking_status', 'customer_booking_id', 'customer_booking_status_id')
-                    ->withPivot('owner')->withTimestamps();
+        return $this->belongsToMany('App\Models\CustomerBookingStatus', 
+            'booking_status', 'customer_booking_id', 'customer_booking_status_id')
+                    ->withPivot('owner')->withPivot('user_id')->withTimestamps();
     }
 }

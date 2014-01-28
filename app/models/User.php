@@ -55,4 +55,5 @@ class User extends \Cartalyst\Sentry\Users\Eloquent\User implements UserInterfac
         {
                 return $this->hasMany('App\Models\CustomerProfile');
         }
+
 }
