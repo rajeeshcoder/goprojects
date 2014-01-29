@@ -9,9 +9,8 @@ use App\Models\CustomerVehicle;
 use App\Models\CustomerProfile;
 
 use App\Services\Validators\CustomerBookingValidator;
-use Ruler\Context;
 use App\Services\Rules\CustomerBookingRule;
-use Input, Redirect, Sentry, Str, Session;
+use Input, Redirect, Sentry, Str, Session, Event;
 
 class BookingsController extends \BaseController {
 
@@ -57,35 +56,23 @@ class BookingsController extends \BaseController {
 
                 $customer_booking = CustomerBooking::find($booking->id);
 
-                //var_dump($customer_booking); 
+                $booking_status = $customer_booking->customerbookingstatus()
+                                     ->where('booking_status.customer_booking_id', '=', $booking->id)->get()->last();
 
+                $status_msg["$booking->id"] = $booking_status;                  
 
-            $booking_status = $customer_booking->customerbookingstatus()
-                                 ->where('booking_status.customer_booking_id', '=', $booking->id)->get()->last();
-
-            $status_msg["$booking->id"] = $booking_status;                  
-
-                //var_dump($booking_status->title);
-                //$rb = new RuleBuilder;
                 $testrule = new CustomerBookingRule();
-        
-                //var_dump($booking_status->title);
-                
-               $ret_val = ($testrule->findEligibility($customer_booking->servicedate, $booking_status->title));
+            
+                $ret_val = ($testrule->findEligibility($customer_booking->servicedate, $booking_status->title));
 
                 if (is_null($ret_val)) {
                     $buttons["$booking->id"] = [];
                 }
                 else {
-                    $buttons["$booking->id"] = $ret_val;
+                     $buttons["$booking->id"] = $ret_val;
                 }
-                
-                //$booking->[id]->[buttons] = "test";
-                
            }
-           //var_dump($buttons);
            return \View::make('customer.bookings.index', compact('bookings', 'buttons', 'status_msg'));
-           
     }
 
 
@@ -199,6 +186,7 @@ class BookingsController extends \BaseController {
     {
         $customer_booking = CustomerBooking::find($id);
         $customer_booking->customerbookingstatus()->attach(5, array('owner' => 'c', 'user_id' => Sentry::getUser()->id));
+        Event::fire('masterservice.create', array($customer_booking));
         return Redirect::route('customer.bookings.index');
     }    
 

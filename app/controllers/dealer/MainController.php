@@ -1,16 +1,19 @@
 <?php namespace App\Controllers\Dealer;
 
-use Notification; 
+// Models
 use App\Models\User;
 use App\Models\Manufacturer;
 use App\Models\Model;
 use App\Models\CustomerBooking;
 use App\Models\CustomerVehicle;
 use App\Models\CustomerProfile;
-
+//Events
+use App\Events\InsertServiceMasterEvent;
+//Rules & Validators
 use App\Services\Validators\CustomerBookingValidator;
 use App\Services\Rules\DealerBookingRule;
-use Input, Redirect, Sentry, Str;
+//Miscallenous.
+use Input, Redirect, Sentry, Str, Notification; ;
 
 class MainController extends \BaseController {
 
@@ -101,6 +104,7 @@ class MainController extends \BaseController {
     {
         $customer_booking = CustomerBooking::find($id);
         $customer_booking->customerbookingstatus()->attach(4, array('owner' => 'd', 'user_id' => Sentry::getUser()->id));
+        
         //$customer_booking->delete();
 
         return Redirect::route('dealer.bookings.index');

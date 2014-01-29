@@ -26,7 +26,6 @@
                 <td>{{ $booking->servicedate }}</td>
                         @if( $buttons[$booking->id] && sizeof($buttons[$booking->id]) > 0)
                                 @foreach($buttons[$booking->id] as $button)
-                                        {{ var_dump($button) }}
                                         <td>
                                         @if(preg_match("/cancel/i", $button, $match)) 
                                                 {{ Form::open(array('route' => array('customer.bookings.destroy', $booking->id), 'method' => 'delete', 'data-confirm' => 'Are you sure to cancel this booking?')) }}

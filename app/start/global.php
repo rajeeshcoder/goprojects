@@ -79,3 +79,6 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+// Listen for events.
+require app_path().'/listeners.php';

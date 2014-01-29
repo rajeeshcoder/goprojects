@@ -25,7 +25,6 @@
                 <td><?php echo $booking->servicedate; ?></td>
                         <?php if( $buttons[$booking->id] && sizeof($buttons[$booking->id]) > 0): ?>
                                 <?php foreach($buttons[$booking->id] as $button): ?>
-                                        <?php echo var_dump($button); ?>
                                         <td>
                                         <?php if(preg_match("/cancel/i", $button, $match)): ?> 
                                                 <?php echo Form::open(array('route' => array('customer.bookings.destroy', $booking->id), 'method' => 'delete', 'data-confirm' => 'Are you sure to cancel this booking?')); ?>

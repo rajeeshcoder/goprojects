@@ -5,6 +5,7 @@ use App\Models\ServiceCenter;
 use App\Models\CustomerVehicle;
 use Carbon\Carbon;
 use App\Models\CustomerBookingStatus;
+use App\Models\ServiceMaster;
  
 class CustomerBooking extends \Eloquent {
  
@@ -52,10 +53,21 @@ class CustomerBooking extends \Eloquent {
         return Carbon::createFromFormat('Y-m-d H:i:s', $value)->format('d-m-Y H:i:s');
     }
 
+    //This one resolve the writing to another Table with the correct MySQL fromat.
+    public function raw_servicedate() {
+        return Carbon::createFromFormat('d-m-Y H:i:s', $this->servicedate)->format('Y-m-d H:i:s');
+        //return Carbon::createFromFormat('Y-m-d H:i:s', $value)->format('d-m-Y H:i:s')
+    }
+
     public function customerbookingstatus()
     {
         return $this->belongsToMany('App\Models\CustomerBookingStatus', 
             'booking_status', 'customer_booking_id', 'customer_booking_status_id')
                     ->withPivot('owner')->withPivot('user_id')->withTimestamps();
+    }
+
+    public function servicemaster()
+    {
+        return $this->hasOne('App\Models\ServiceMaster', 'booking_id', 'id');
     }
 }
