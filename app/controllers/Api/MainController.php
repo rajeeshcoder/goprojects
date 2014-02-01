@@ -3,7 +3,8 @@
 use Notification; 
 use App\Models\Manufacturer;
 use App\Models\Model;
-use Input, Redirect, Sentry, Str;
+use App\Models\ServiceMaster;
+use Input, Redirect, Sentry, Str, Request;
  
 class MainController extends \BaseController {
  
@@ -30,4 +31,16 @@ class MainController extends \BaseController {
                   );
         }
 
+        public function postRule() {
+          if (Request::ajax()) {
+            $data = Input::all();
+            $service_id = $data['service_id']; 
+            $next_status_id = $data['next_status_id']; 
+            $description = $data['description']; 
+            $customer_service = ServiceMaster::find($service_id);
+            $results = $customer_service->servicemasterstatus()->attach($next_status_id, array('description' => $description, 'user_id' => Sentry::getUser()->id));
+            //$results = $customer_service->servicemasterstatus()->attach(2, array('user_id' => Sentry::getUser()->id));
+            return \Response::json(array('results' => $results));
+          }
+        }  
 }

@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use App\Models\User;
+use App\Models\CustomerBooking;
  
 class CustomerProfile extends \Eloquent {
  
@@ -11,4 +12,9 @@ class CustomerProfile extends \Eloquent {
         return $this->belongsTo('App\Models\User');
     }
  
+ 	public function customerbookings()
+    {
+        return $this->hasMany('App\Models\CustomerBooking');
+    }
+
 }

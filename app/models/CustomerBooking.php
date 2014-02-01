@@ -3,6 +3,7 @@
 use App\Models\User;
 use App\Models\ServiceCenter;
 use App\Models\CustomerVehicle;
+use App\Models\CustomerProfile;
 use Carbon\Carbon;
 use App\Models\CustomerBookingStatus;
 use App\Models\ServiceMaster;
@@ -42,6 +43,11 @@ class CustomerBooking extends \Eloquent {
     public function customervehicle()
     {
         return $this->belongsTo('App\Models\CustomerVehicle', 'vehicle_id', 'id');
+    }
+
+    public function customerprofile()
+    {
+        return $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id', 'id');
     }
 
     public function setServiceDateAttribute($value)

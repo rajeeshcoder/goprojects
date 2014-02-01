@@ -1,0 +1,54 @@
+ 
+<?php $__env->startSection('main'); ?>
+ 
+<table class="table table-striped">
+<thead>
+        <tr>
+                <th>#</th>
+                <th>Name</td>
+                <th>Phone No</td>
+                <th>Pick up location</th> 
+                <th>Current Status</th>
+                <th>Reg No</th>
+                <th>Service Date</th>
+                <th>Model</th>
+                <th>Run-In KM</th>
+                <th>Service Type</th>
+                <th>Service Delivery</th>
+        </tr>
+</thead>
+<tbody>
+<?php foreach ($services as $service): ?>
+        <tr>
+                <td><?php echo $service->id; ?></td>
+                <td><?php echo $service->booking->customervehicle->user->first_name; ?></td>
+                <td><?php echo $service->booking->customerprofile->primary_phone; ?></td>  
+                <?php if(preg_match("/pick/i", $service->booking->service_dispatch, $match)): ?>
+                <td><?php echo $service->booking->customerprofile->address; ?></td>  
+                <?php else: ?> 
+                <td><b>Walk In</b></td>
+                <?php endif; ?>  
+                <td><?php echo $status_msg["$service->id"]->title; ?></td>
+                <td><?php echo $service->booking->customervehicle->reg_no; ?></td>
+                <td><?php echo $service->booking->servicedate; ?></td>
+                <td><?php echo $service->booking->customervehicle->model->title; ?></td>
+                <td><?php echo $service->booking->total_km; ?></td>
+                <td><?php echo $service->booking->service_type; ?></td>
+                <td><?php echo $service->booking->service_dispatch; ?></td>
+                <td><?php echo $service->servicedate; ?></td>
+                    <?php if( $buttons[$service->id] && sizeof($buttons[$service->id]) > 0): ?>
+                        <?php foreach($buttons[$service->id] as $button): ?>
+                            <td>
+                                        <button type="button" id="<?php echo $service->id; ?>_<?php echo $status_msg[$service->id]->pivot->service_master_status_id; ?>" class="btn btn-info btn-mini"><?php echo ucfirst($button); ?></button>
+                                        <div id="msg_<?php echo $service->id; ?>"></div>
+                            </td>    
+                        <?php endforeach; ?>
+                    <?php endif; ?>                
+                
+        </tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('dealer._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

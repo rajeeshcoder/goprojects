@@ -25,6 +25,20 @@ Route::get('admin/logout', array('as' => 'admin.logout', 'uses' => 'App\Controll
 Route::get('admin/login', array('as' => 'admin.login', 'uses' => 'App\Controllers\Admin\AuthController@getLogin'));
 Route::post('admin/login', array('as' => 'admin.login.post', 'uses' => 'App\Controllers\Admin\AuthController@postLogin'));
 
+// Admin Route restriction.
+Route::group(array('prefix' => 'admin', 'before' => 'auth.admin'), function()
+{
+        Route::any('/', 'App\Controllers\Admin\ManufacturersController@index');
+        Route::resource('manufacturers', 'App\Controllers\Admin\ManufacturersController');
+        Route::resource('models', 'App\Controllers\Admin\ModelsController');
+        Route::resource('dealers', 'App\Controllers\Admin\DealersController');
+        Route::resource('service_centers', 'App\Controllers\Admin\ServiceCentersController');
+
+        # Admin Dashboard
+        Route::controller('/', 'App\Controllers\Admin\ModelsController');
+        Route::controller('/', 'App\Controllers\Admin\ManufacturersController');
+});
+
 //Admin Authentication routes.
 Route::get('dealer/logout', array('as' => 'dealer.logout', 'uses' => 'App\Controllers\Dealer\AuthController@getLogout'));
 Route::get('dealer/login', array('as' => 'dealer.login', 'uses' => 'App\Controllers\Dealer\AuthController@getLogin'));
@@ -36,8 +50,11 @@ Route::group(array('prefix' => 'dealer', 'before' => 'auth.dealer'), function()
     Route::any('/', 'App\Controllers\Dealer\MainController@index');
     Route::resource('centers', 'App\Controllers\Dealer\MainController');
     Route::resource('bookings', 'App\Controllers\Dealer\MainController');
+    Route::resource('services', 'App\Controllers\Dealer\ServicesController');
 
     Route::get('dealer/bookings/booking/{id}', array('as' => 'dealer.centers.bookings', 'uses' => 'App\Controllers\Dealer\MainController@getBookings'));
+    Route::get('dealer/services/service/{id}', array('as' => 'dealer.centers.services', 'uses' => 'App\Controllers\Dealer\ServicesController@getServices'));
+    Route::post('dealer/services/service/started', array('as' => 'dealer.services.started', 'uses' => 'App\Controllers\Dealer\ServicesController@postStarted'));
     Route::get('dealer/bookings/approve/{id}', array('as' => 'dealer.bookings.approve', 'uses' => 'App\Controllers\Dealer\MainController@getApprove'));
 
     Route::controller('bookings', 'App\Controllers\Dealer\MainController');
@@ -65,5 +82,5 @@ Route::group(array('prefix' => 'customer', 'before' => 'auth.customer'), functio
 
 });
 
-
 Route::get('/api/main/models/id/{id}', 'App\Controllers\Api\MainController@getModels');
+Route::post('/api/main/rule', 'App\Controllers\Api\MainController@postRule');

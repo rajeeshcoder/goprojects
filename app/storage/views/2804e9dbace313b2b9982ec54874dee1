@@ -11,7 +11,8 @@
         </div>
         <?php endif; ?>
  
-        <?php echo Form::model($vehicle, array('method' => 'put', 'route' => array('customer.vehicles.update', $vehicle->id))); ?>
+       
+        <?php echo Form::model($booking, array('method' => 'put', 'route' => array('customer.vehicles.update', $booking->id))); ?>
  
                <div class="control-group">
                     Manufacturer : <b><?php echo $vehicle->model->manufacturer->title; ?></b>

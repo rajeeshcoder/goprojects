@@ -50,7 +50,7 @@ class VehiclesController extends \BaseController {
                }
                //return \View::make('customer.user_vehicles.create', compact('manufacturer'));
                $vehicle = CustomerVehicle::all();
-               if ($vehicle->count() < 3) {
+               if ($vehicle->count() < 4) {
                    return \View::make('customer.vehicles.create', compact('manufacturer'));
                }   
                 
