@@ -2,7 +2,7 @@
  
 @section('main')
  
-<table class="table table-striped">
+<table class="table table-striped" id="service">
 <thead>
         <tr>
                 <th>#</th>
@@ -38,14 +38,13 @@
                 <td>{{ $service->booking->service_dispatch }}</td>
                 <td>{{ $service->servicedate }}</td>
                     @if( $buttons[$service->id] && sizeof($buttons[$service->id]) > 0)
-                        @foreach($buttons[$service->id] as $button)
-                            <td>
+                        <td>
+                            @foreach($buttons[$service->id] as $button)
                                         <button type="button" id="{{ $service->id }}_{{ $status_msg[$service->id]->pivot->service_master_status_id }}" class="btn btn-info btn-mini">{{ ucfirst($button) }}</button>
                                         <div id="msg_{{ $service->id }}"></div>
-                            </td>    
-                        @endforeach
+                            @endforeach
+                        </td>    
                     @endif                
-                
         </tr>
 @endforeach
 </tbody>

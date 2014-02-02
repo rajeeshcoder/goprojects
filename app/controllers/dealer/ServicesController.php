@@ -40,12 +40,17 @@ class ServicesController extends \BaseController {
 
             // HasOne relationship.
             $service = ServiceMaster::where('booking_id', $booking->id)->first();
+
+            if(!isset($service->id)) {
+                continue;
+            }
+
             array_push($services, $service);
 
-            //var_dump($customer_service); 
 
             $service_status = $service->servicemasterstatus()
                              ->where('service_status.service_master_id', '=', $service->id)->get()->last();
+
 
             $status_msg["$service->id"] = $service_status;                  
 
@@ -120,9 +125,9 @@ class ServicesController extends \BaseController {
     {
         
         //if (Request::ajax()) {
-            $customer_service = ServiceMaster::find(20);
-            $thisId = Input::get('textbox');
-            $customer_service->servicemasterstatus()->attach(2, array('owner' => 'd', 'user_id' => Sentry::getUser()->id));
+          //  $customer_service = ServiceMaster::find(20);
+           // $thisId = Input::get('textbox');
+           // $customer_service->servicemasterstatus()->attach(2, array('owner' => 'd', 'user_id' => Sentry::getUser()->id));
             //return \View::make('dealer.services.status')->with('msg', $this.id);
         //}
         //$customer_service = CustomerService::find($id);

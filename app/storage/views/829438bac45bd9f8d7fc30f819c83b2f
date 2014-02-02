@@ -1,7 +1,7 @@
  
 <?php $__env->startSection('main'); ?>
  
-<table class="table table-striped">
+<table class="table table-striped" id="service">
 <thead>
         <tr>
                 <th>#</th>
@@ -37,14 +37,13 @@
                 <td><?php echo $service->booking->service_dispatch; ?></td>
                 <td><?php echo $service->servicedate; ?></td>
                     <?php if( $buttons[$service->id] && sizeof($buttons[$service->id]) > 0): ?>
-                        <?php foreach($buttons[$service->id] as $button): ?>
-                            <td>
+                        <td>
+                            <?php foreach($buttons[$service->id] as $button): ?>
                                         <button type="button" id="<?php echo $service->id; ?>_<?php echo $status_msg[$service->id]->pivot->service_master_status_id; ?>" class="btn btn-info btn-mini"><?php echo ucfirst($button); ?></button>
                                         <div id="msg_<?php echo $service->id; ?>"></div>
-                            </td>    
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        </td>    
                     <?php endif; ?>                
-                
         </tr>
 <?php endforeach; ?>
 </tbody>
