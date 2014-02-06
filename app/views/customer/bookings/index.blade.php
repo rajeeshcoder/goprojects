@@ -1,8 +1,12 @@
 @extends('customer._layouts.default')
  
 @section('main')
- 
-<table class="table table-striped">
+
+
+@if(is_null($bookings))
+You don't have any services processed.
+@else   
+<table class="table">
 <thead>
         <tr>
                 <th>#</th>
@@ -15,8 +19,32 @@
         </tr>
 </thead>
 <tbody>
-@foreach ($bookings as $booking)
+@foreach($bookings as $booking)
+
         <tr>
+        <td colspan="8">    
+                @foreach ($booking->customerbookingstatus as $status)
+                    <?php if($status->title == "pending") { continue; }; ?> 
+                    @if($status->pivot->owner == 'c')
+                        <p>
+                        <i class="icon-large icon-user"></i>
+                        <button type="button" class="btn btn-default btn-xs disabled="disabled"">
+                            <strong>Self</strong> {{$status->pivot->created_at}}                  {{ ucfirst($status->title)}}
+                        </button>
+                    </p>
+                    @else
+                        <p>
+                        <i class="icon-large icon-adjust"></i>
+                        <button type="button" class="btn btn-info btn-xs disabled="disabled"">
+                         Dealer {{$status->pivot->created_at}}   {{ ucfirst($status->title)}} 
+                         </button>   
+                        </p>
+                    @endif
+                    @endforeach
+        </td>    
+        </tr>    
+        <tr>
+
                 <td>{{ $booking->id }}</td>
                 <td>{{ $status_msg["$booking->id"]->title }}</td>
                 <td>{{ $booking->servicecenter->dealer->title }}</td>
@@ -46,5 +74,5 @@
 @endforeach
 </tbody>
 </table>
-
+@endif
 @stop

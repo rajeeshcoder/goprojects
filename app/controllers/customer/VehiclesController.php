@@ -49,7 +49,7 @@ class VehiclesController extends \BaseController {
                        $manufacturer[$man->id] = $man->title;
                }
                //return \View::make('customer.user_vehicles.create', compact('manufacturer'));
-               $vehicle = CustomerVehicle::all();
+               $vehicle = CustomerVehicle::where('user_id', Sentry::getUser()->id)->get();
                if ($vehicle->count() < 4) {
                    return \View::make('customer.vehicles.create', compact('manufacturer'));
                }   

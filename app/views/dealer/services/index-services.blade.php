@@ -40,9 +40,12 @@
                     @if( $buttons[$service->id] && sizeof($buttons[$service->id]) > 0)
                         <td>
                             @foreach($buttons[$service->id] as $button)
-                                        <button type="button" id="{{ $service->id }}_{{ $status_msg[$service->id]->pivot->service_master_status_id }}" class="btn btn-info btn-mini">{{ ucfirst($button) }}</button>
-                                        <div id="msg_{{ $service->id }}"></div>
+                                <button type="button" id="{{ $service->id }}_{{ $status_msg[$service->id]->pivot->service_master_status_id }}" class="btn btn-info btn-mini">{{ ucfirst($button) }}</button>
+                                <div id="msg_{{ $service->id }}"></div>
                             @endforeach
+                        </td>    
+                        <td>                
+                            <a href="{{ URL::route("dealer.services.quote", $service->id) }}" class="btn btn-default btn-small">Quote</a>
                         </td>    
                     @endif                
         </tr>

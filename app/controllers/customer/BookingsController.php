@@ -59,6 +59,8 @@ class BookingsController extends \BaseController {
                 $booking_status = $customer_booking->customerbookingstatus()
                                      ->where('booking_status.customer_booking_id', '=', $booking->id)->get()->last();
 
+                
+
                 $status_msg["$booking->id"] = $booking_status;                  
 
                 $testrule = new CustomerBookingRule();

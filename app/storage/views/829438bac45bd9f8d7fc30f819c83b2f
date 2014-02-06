@@ -39,9 +39,12 @@
                     <?php if( $buttons[$service->id] && sizeof($buttons[$service->id]) > 0): ?>
                         <td>
                             <?php foreach($buttons[$service->id] as $button): ?>
-                                        <button type="button" id="<?php echo $service->id; ?>_<?php echo $status_msg[$service->id]->pivot->service_master_status_id; ?>" class="btn btn-info btn-mini"><?php echo ucfirst($button); ?></button>
-                                        <div id="msg_<?php echo $service->id; ?>"></div>
+                                <button type="button" id="<?php echo $service->id; ?>_<?php echo $status_msg[$service->id]->pivot->service_master_status_id; ?>" class="btn btn-info btn-mini"><?php echo ucfirst($button); ?></button>
+                                <div id="msg_<?php echo $service->id; ?>"></div>
                             <?php endforeach; ?>
+                        </td>    
+                        <td>                
+                            <a href="<?php echo URL::route("dealer.services.quote", $service->id); ?>" class="btn btn-default btn-small">Quote</a>
                         </td>    
                     <?php endif; ?>                
         </tr>

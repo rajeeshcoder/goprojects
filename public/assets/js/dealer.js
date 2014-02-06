@@ -141,4 +141,43 @@
 
         });      
     });
+
+    $(function() {
+        //$('#quoter').datepicker();
+        
+        $("#quoter").autocomplete({
+            source: "/api/main/quote",
+            minLength: 1,
+            select: function( event, ui ) {
+                        alert(ui.item.value);
+                    }
+        });
+    
+    });  
+
+   // $(function() {
+        jQuery("#quotegrid").jqGrid({
+            onSelectRow: function(rowid) {
+                alert("t");
+                //$("<body>").append("<p>raj</p>");
+            }
+        });
+ // });
+
+      $(function() {
+         //$('#autobutton').on('click', 'button', function(event){
+
+         $('body').on('click', 'a.quoterows', function(event){
+            var quoterow_id =  this.parentNode.parentNode.id;
+            var row_price = $('#'+quoterow_id).find('.pricerow').text();
+            var curr_total = $('#total > td > strong').text();
+            var new_total = (curr_total-row_price);
+            //alert(curr_total+ "=" +row_price );
+            $('#total > td > strong').text(new_total.toFixed(2));
+            $('#'+quoterow_id).remove(); 
+         });   
+
+
+      });      
+
 });

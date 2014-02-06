@@ -17,7 +17,7 @@
 		      @endif
 		</div>
 	</div>
-
+<!--
 	<div class="row-fluid">
 		<div class="span12">
 			 <div class="alert alert-info">
@@ -26,7 +26,7 @@
 		 	</div>
 		</div>
 	</div>
-
+-->
 	<div class="row-fluid">
 		<div class="span1">
 		</div>	

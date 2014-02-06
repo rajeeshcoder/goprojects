@@ -1,0 +1,109 @@
+@extends('dealer._layouts.default')
+ 
+
+
+@section('main')
+ 
+<div class="jumbotron">
+    <h3>Create a new Quote</h3>
+</div>
+
+{{ Notification::showAll() }}
+
+@if ($errors->any())
+<div class="alert alert-error">
+        {{ implode('<br>', $errors->all()) }}
+</div>
+@endif
+
+{{ 
+    GridRender::setGridId("quotegrid")
+            ->enablefilterToolbar()
+            ->setGridOption('url',URL::route('dealer.services.postquote'))
+            ->setGridOption('rowNum',10)
+            ->setGridOption('shrinkToFit',false)
+            ->setGridOption('sortname','id')
+            ->setGridOption('caption','Spare List')
+            ->setNavigatorOptions('navigator', array('viewtext'=>'view'))
+            ->setNavigatorOptions('view',array('closeOnEscape'=>false))
+            ->setNavigatorOptions('search', array('multipleSearch'=>true,'multipleGroup'=>true))
+            ->setFilterToolbarOptions(array('autosearch'=>true))
+            ->setGridEvent('onSelectRow', 'onSelectRowEvent')
+            //->setFilterToolbarEvent('beforeSearch', 'function(){}') 
+            ->addColumn(array('index'=>'id', 'index'=>'id', 'width'=>30, 'key' => true))
+            ->addColumn(array('name'=>'part_number', 'index'=>'part_number', 'width'=>100))
+            ->addColumn(array('name'=>'description', 'index'=>'description', 'width'=>200, 'align'=>'left'))
+            ->addColumn(array('name'=>'unit', 'index'=>'unit', 'width'=>30))
+            ->addColumn(array('name'=>'price', 'index'=>'price', 'width'=>60))
+            ->renderGrid(); 
+}}
+ 
+ <br>
+        {{ Form::open(array('route' => 'dealer.services.postquote')) }}
+        <table id="quote_form" class="table table-striped">
+            <tbody></tbody>
+        </table>    
+
+        {{ Form::close() }}
+ 
+@stop
+
+@section('javascript')
+<script type='text/javascript'>
+function onLoadCompleteEvent(data)
+{
+$(this).jqGrid('footerData','set', {'quantity': 'Total:', 'total': $(this).jqGrid('getCol', 'total', false, 'sum')});   
+}
+
+function onSelectRowEvent(rowId)
+{
+     var rowdata = $('#quotegrid').jqGrid('getRowData', rowId);
+     //alert(rowdata['part_number']);
+     //for(var i=0; i< rowdata.length; i++) {
+     //  alert(rowdata[i]);
+     //}
+    if(!($('#total').length)) {     
+        var total_cell = "<tr id='total'><td colspan='4' align='right'>Total: <strong></strong></td></tr>";
+        ($("#quote_form tbody:first")).append(total_cell);  
+    } 
+
+    if(!($('#'+rowdata['part_number']).length)) {     
+         var row = ($('<tr>').attr("id", rowdata['part_number']))
+            .append("<td>" + rowdata["part_number"] + "</td>")
+            .append("<td>" + rowdata["description"] + "</td>")
+            .append("<td>" + rowdata["unit"] + "</td>")
+            .append("<td class='pricerow'>" + rowdata["price"] + "</td>")
+            .append("<td>" + "<a class='quoterows' href='#'> Remove</a>" + "</td>");
+
+         row.appendTo($("#quote_form tbody:last"));
+    }     
+   
+    if ($('#total').length) {     
+        var sum = 0; 
+        $("#quote_form tr").siblings().each(function(id) {
+             //var ar = $(this).find('td.pricerow').text();
+
+             
+            // $(this).siblings('td.pricerow').each(function(){ //Iterate through the siblings to calculate the sum.
+            //$(this).siblings('.pricerow').each(function(){ //Iterate through the siblings to calculate the sum.
+
+
+                sum += +$(this).find('.pricerow').text();
+                //alert($(this).find('.pricerow').text());
+             //});
+            
+        });
+        
+        $('#total > td > strong').text(sum.toFixed(2));
+        //alert(sum);
+    }    
+}
+
+function beforeClearEvent()
+{
+$('#gs_invoice-id').val($('#id').val());    
+$('#InvoiceItemsGrid').setGridParam({'postData':{"filters":"{'groupOp':'AND','rules':[{'field':'DEMO_Invoice.id','op':'eq','data':'"+$('#id').val()+"'}]}"}});
+}   
+</script>
+
+@stop

@@ -13,7 +13,7 @@
 <body>
 <div class="container">
         <?php echo $__env->make('dealer._partials.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-
+        <?php echo $__env->yieldContent('javascript'); ?>
         <?php echo $__env->yieldContent('main'); ?>
 </div>
 </body>

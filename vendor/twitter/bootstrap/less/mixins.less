@@ -629,10 +629,7 @@
 }
 
 .responsive-invisibility() {
-    &,
-  tr&,
-  th&,
-  td& { display: none !important; }
+  display: none !important;
 }
 
 
@@ -919,7 +916,8 @@
     line-height: @input-height;
   }
 
-  textarea& {
+  textarea&,
+  select[multiple]& {
     height: auto;
   }
 }

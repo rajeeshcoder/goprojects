@@ -12,7 +12,7 @@ class ServiceMasterStatus extends \Eloquent {
     {
         return $this->belongsToMany('App\Models\ServiceMaster', 'service_status', 
         	'service_master_status_id', 'service_master_id')
-        	->withPivot('user_id')->withTimestamps();;
+        	->withPivot('user_id')->withPivot('description')->withTimestamps();;
     }
 
 }

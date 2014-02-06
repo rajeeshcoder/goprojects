@@ -32,6 +32,7 @@ return array(
     'Normalizer' => array($vendorDir . '/patchwork/utf8/class'),
     'Net' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Monolog' => array($vendorDir . '/monolog/monolog/src'),
+    'Mgallegos\\LaravelJqgrid' => array($vendorDir . '/mgallegos/laravel-jqgrid/src'),
     'Math' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Krucas\\Notification' => array($vendorDir . '/edvinaskrucas/notification/src'),
     'Jeremeamia\\SuperClosure' => array($vendorDir . '/jeremeamia/SuperClosure/src'),

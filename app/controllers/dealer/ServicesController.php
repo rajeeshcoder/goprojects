@@ -11,6 +11,10 @@ use App\Models\CustomerBooking;
 use App\Models\ServiceMaster;
 use App\Models\ServiceMasterStatus;
 
+use Mgallegos\LaravelJqgrid\Encoders\RequestedDataInterface;
+
+use App\Controllers\Api\ExampleRepository;
+
 //Events
 use App\Events\InsertServiceMasterEvent;
 //Rules & Validators
@@ -20,6 +24,18 @@ use App\Services\Rules\DealerServiceRule;
 use Input, Redirect, Sentry, Str, Notification; ;
 
 class ServicesController extends \BaseController {
+
+    protected $GridEncoder;
+
+    public function __construct(RequestedDataInterface $GridEncoder)
+    {
+        $this->GridEncoder = $GridEncoder;
+    }
+
+    public function postQuote()
+    {
+        $this->GridEncoder->encodeRequestedData(new ExampleRepository(), Input::all());
+    }
 
     public function index()
     {
@@ -120,6 +136,15 @@ class ServicesController extends \BaseController {
         return Redirect::route('dealer.services.index');
     }
 
+    public function getQuote($id)
+    {
+        $customer_service = ServiceMaster::find($id);
+        //$customer_service->customerservicestatus()->attach(4, array('owner' => 'd', 'user_id' => Sentry::getUser()->id));
+        
+        //$customer_service->delete();
+
+        return \View::make('dealer.services.quote', compact('customer_service'));
+    }
 
     public function postStarted()
     {

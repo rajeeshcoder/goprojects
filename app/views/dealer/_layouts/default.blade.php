@@ -13,7 +13,7 @@
 <body>
 <div class="container">
         @include('dealer._partials.header')
-
+        @yield('javascript')
         @yield('main')
 </div>
 </body>

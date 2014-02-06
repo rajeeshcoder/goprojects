@@ -1,7 +1,11 @@
  
 <?php $__env->startSection('main'); ?>
- 
-<table class="table table-striped">
+
+
+<?php if(is_null($bookings)): ?>
+You don't have any services processed.
+<?php else: ?>   
+<table class="table">
 <thead>
         <tr>
                 <th>#</th>
@@ -14,8 +18,32 @@
         </tr>
 </thead>
 <tbody>
-<?php foreach ($bookings as $booking): ?>
+<?php foreach($bookings as $booking): ?>
+
         <tr>
+        <td colspan="8">    
+                <?php foreach ($booking->customerbookingstatus as $status): ?>
+                    <?php if($status->title == "pending") { continue; }; ?> 
+                    <?php if($status->pivot->owner == 'c'): ?>
+                        <p>
+                        <i class="icon-large icon-user"></i>
+                        <button type="button" class="btn btn-default btn-xs disabled="disabled"">
+                            <strong>Self</strong> <?php echo $status->pivot->created_at; ?>                  <?php echo ucfirst($status->title); ?>
+                        </button>
+                    </p>
+                    <?php else: ?>
+                        <p>
+                        <i class="icon-large icon-adjust"></i>
+                        <button type="button" class="btn btn-info btn-xs disabled="disabled"">
+                         Dealer <?php echo $status->pivot->created_at; ?>   <?php echo ucfirst($status->title); ?> 
+                         </button>   
+                        </p>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+        </td>    
+        </tr>    
+        <tr>
+
                 <td><?php echo $booking->id; ?></td>
                 <td><?php echo $status_msg["$booking->id"]->title; ?></td>
                 <td><?php echo $booking->servicecenter->dealer->title; ?></td>
@@ -45,6 +73,6 @@
 <?php endforeach; ?>
 </tbody>
 </table>
-
+<?php endif; ?>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('customer._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

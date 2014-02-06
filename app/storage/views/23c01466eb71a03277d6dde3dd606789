@@ -12,7 +12,7 @@
         <?php endif; ?>
  
  
-        <?php echo Form::open(array('route' => 'admin.manufacturers.store')); ?>
+        <?php echo Form::open(array('route' => 'admin.dealers.store')); ?>
  
                 <div class="control-group">
                         <?php echo Form::label('title', 'Title'); ?>

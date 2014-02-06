@@ -107,7 +107,9 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
-		'Krucas\Notification\NotificationServiceProvider'
+		'Krucas\Notification\NotificationServiceProvider',
+		'Mgallegos\LaravelJqgrid\LaravelJqgridServiceProvider',
+		//'App\Controllers\Api\ExampleRepository\
 
 	),
 
@@ -175,7 +177,8 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Sentry' 		  => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-		'Notification' 		=> 'Krucas\Notification\Facades\Notification'	
+		'Notification' 	  => 'Krucas\Notification\Facades\Notification',
+		'GridRender'      => 'Mgallegos\LaravelJqgrid\Facades\GridRender',	
 	),
 
 );

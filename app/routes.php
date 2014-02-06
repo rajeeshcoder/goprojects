@@ -55,7 +55,11 @@ Route::group(array('prefix' => 'dealer', 'before' => 'auth.dealer'), function()
     Route::get('dealer/bookings/booking/{id}', array('as' => 'dealer.centers.bookings', 'uses' => 'App\Controllers\Dealer\MainController@getBookings'));
     Route::get('dealer/services/service/{id}', array('as' => 'dealer.centers.services', 'uses' => 'App\Controllers\Dealer\ServicesController@getServices'));
     Route::post('dealer/services/service/started', array('as' => 'dealer.services.started', 'uses' => 'App\Controllers\Dealer\ServicesController@postStarted'));
-    Route::get('dealer/bookings/approve/{id}', array('as' => 'dealer.bookings.approve', 'uses' => 'App\Controllers\Dealer\MainController@getApprove'));
+    Route::get('dealer/services/quote/{id}', array('as' => 'dealer.services.quote', 'uses' => 'App\Controllers\Dealer\ServicesController@getQuote'));
+    Route::post('dealer/services/quote', array('as' => 'dealer.services.postquote', 'uses' => 'App\Controllers\Dealer\ServicesController@postQuote'));
+
+    Route::get('dealer/bookings/approve/{id}', array('as' => 'dealer.bookings.approve', 'uses' => 'App\Controllers\Dealer\MainController@getApprove'));Route::get('dealer/bookings/approve/{id}', array('as' => 'dealer.bookings.approve', 'uses' => 'App\Controllers\Dealer\MainController@getApprove'));
+
 
     Route::controller('bookings', 'App\Controllers\Dealer\MainController');
 });
@@ -69,6 +73,8 @@ Route::group(array('prefix' => 'customer', 'before' => 'auth.customer'), functio
 	Route::resource('services', 'App\Controllers\Customer\ServicesController');
 	Route::resource('vehicles', 'App\Controllers\Customer\VehiclesController');
 	Route::resource('bookings', 'App\Controllers\Customer\BookingsController');
+    Route::resource('services', 'App\Controllers\Customer\ServicesController');
+
 
     Route::get('customer/bookings/book/{id}', array('as' => 'customer.bookings.book', 'uses' => 'App\Controllers\Customer\BookingsController@getBook'));
     Route::post('customer/bookings/book{id}', array('as' => 'customer.bookings.postbook', 'uses' => 'App\Controllers\Customer\BookingsController@postBook'));
@@ -77,10 +83,12 @@ Route::group(array('prefix' => 'customer', 'before' => 'auth.customer'), functio
     Route::get('customer/bookings/modify/{id}', array('as' => 'customer.bookings.modify', 'uses' => 'App\Controllers\Customer\BookingsController@getModify'));
     Route::get('customer/bookings/confirm/{id}', array('as' => 'customer.bookings.confirm', 'uses' => 'App\Controllers\Customer\BookingsController@getConfirm'));
     Route::controller('bookings', 'App\Controllers\Customer\BookingsController');
+    Route::controller('services', 'App\Controllers\Customer\ServicesController');
     
     //Route::any('/bookings', 'App\Contrsidollers\Customer\BookingsController@getCenter');
 
 });
 
 Route::get('/api/main/models/id/{id}', 'App\Controllers\Api\MainController@getModels');
+Route::get('/api/main/quote', 'App\Controllers\Api\MainController@getQuote');
 Route::post('/api/main/rule', 'App\Controllers\Api\MainController@postRule');

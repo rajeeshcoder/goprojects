@@ -10,7 +10,8 @@
 	        "dflydev/markdown": "v1.0.2",
         	"imagine/Imagine": "v0.4.1",
 	        "edvinaskrucas/notification": "1.*",
-		"ruler/ruler": "*"
+		"ruler/ruler": "*",
+		"mgallegos/laravel-jqgrid": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

@@ -1,0 +1,45 @@
+ 
+<?php $__env->startSection('main'); ?>
+
+<table class="table">
+<thead>
+        <tr>
+                <th>#</th>
+                <th>Current Status</th>
+                <th>Dealer</th>
+                <th>Location</th>
+                <th>Model</th>
+                <th>Vehicle</th>
+                <th>Service Date</th>
+        </tr>
+</thead>
+<tbody>
+<?php foreach($services as $service): ?>
+
+        <tr>
+        <td colspan="8">    
+            <?php foreach ($service->servicemasterstatus as $status): ?>
+                <?php if($status->title == "pending") { continue; }; ?> 
+                <p>
+                <i class="icon-large icon-adjust"></i>
+                <button type="button" class="btn btn-info btn-xs disabled="disabled"">
+                 <?php echo $status->pivot->created_at; ?>   <?php echo ucfirst($status->title); ?> 
+                 </button>  
+                 <?php echo $status->pivot->description; ?>
+                </p>
+            <?php endforeach; ?>
+        </td>    
+        </tr>    
+        <tr>
+            <td><?php echo $service->id; ?></td>
+            <td><?php echo $service->booking->servicecenter->dealer->title; ?></td>
+            <td><?php echo $service->booking->servicecenter->title; ?></td>
+            <td><?php echo $service->booking->customervehicle->model->title; ?></td>
+            <td><?php echo $service->booking->customervehicle->reg_no; ?></td>
+            <td><?php echo $service->start_date; ?></td>
+        </tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('customer._layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
