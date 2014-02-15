@@ -146,6 +146,22 @@ class ServicesController extends \BaseController {
         return \View::make('dealer.services.quote', compact('customer_service'));
     }
 
+    public function postQuoteData() {
+        if (Request::ajax()) {
+            $data = Input::all();
+            var_dump($data);
+
+            //$service_id = $data['service_id']; 
+            //$next_status_id = $data['next_status_id']; 
+            //$description = $data['description']; 
+            //$customer_service = ServiceMaster::find($service_id);
+            //$results = $customer_service->servicemasterstatus()->attach($next_status_id, array('description' => $description, 'user_id' => Sentry::getUser()->id));
+            //$results = $customer_service->servicemasterstatus()->attach(2, array('user_id' => Sentry::getUser()->id));
+            return \Response::json(array('data' => $data));
+        }
+    }  
+
+
     public function postStarted()
     {
         

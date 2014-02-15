@@ -35,7 +35,7 @@ return array(
 	|
 	*/
 	
-	'default_col_model_properties' => array('searchoptions'=>array(''=>array('cn'))),
+	//'default_col_model_properties' => array('searchoptions'=>array(''=>array('cn'))),
 	
 	/*
 	|--------------------------------------------------------------------------

@@ -57,6 +57,7 @@ Route::group(array('prefix' => 'dealer', 'before' => 'auth.dealer'), function()
     Route::post('dealer/services/service/started', array('as' => 'dealer.services.started', 'uses' => 'App\Controllers\Dealer\ServicesController@postStarted'));
     Route::get('dealer/services/quote/{id}', array('as' => 'dealer.services.quote', 'uses' => 'App\Controllers\Dealer\ServicesController@getQuote'));
     Route::post('dealer/services/quote', array('as' => 'dealer.services.postquote', 'uses' => 'App\Controllers\Dealer\ServicesController@postQuote'));
+    Route::post('dealer/services/quotedata', array('as' => 'dealer.services.postquotedata', 'uses' => 'App\Controllers\Dealer\ServicesController@postQuoteData'));
 
     Route::get('dealer/bookings/approve/{id}', array('as' => 'dealer.bookings.approve', 'uses' => 'App\Controllers\Dealer\MainController@getApprove'));Route::get('dealer/bookings/approve/{id}', array('as' => 'dealer.bookings.approve', 'uses' => 'App\Controllers\Dealer\MainController@getApprove'));
 
@@ -91,4 +92,5 @@ Route::group(array('prefix' => 'customer', 'before' => 'auth.customer'), functio
 
 Route::get('/api/main/models/id/{id}', 'App\Controllers\Api\MainController@getModels');
 Route::get('/api/main/quote', 'App\Controllers\Api\MainController@getQuote');
+Route::post('/api/main/quote', 'App\Controllers\Api\MainController@postQuote');
 Route::post('/api/main/rule', 'App\Controllers\Api\MainController@postRule');

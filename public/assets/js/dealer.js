@@ -164,20 +164,104 @@
         });
  // });
 
-      $(function() {
+    $(function() {
          //$('#autobutton').on('click', 'button', function(event){
 
-         $('body').on('click', 'a.quoterows', function(event){
+        $('body').on('click', 'a.quoterows', function(event){
             var quoterow_id =  this.parentNode.parentNode.id;
-            var row_price = $('#'+quoterow_id).find('.pricerow').text();
+            var row_total = $('#'+quoterow_id).find('#parttotal').text();
+
             var curr_total = $('#total > td > strong').text();
-            var new_total = (curr_total-row_price);
+            var vat_total = $('#total_vat > td > strong').text();
+
+            var new_total = (curr_total-row_total);
+            var new_vat_total =  (new_total*.0250);
+            var new_gross = new_total + new_vat_total;
             //alert(curr_total+ "=" +row_price );
-            $('#total > td > strong').text(new_total.toFixed(2));
+            $('#total > td:last > strong').text(new_total.toFixed(2));
+            $('#total_vat > td:last > strong').text(new_vat_total.toFixed(2));
+            $('#total_gross > td:last > strong').text(new_gross.toFixed(2));
             $('#'+quoterow_id).remove(); 
-         });   
+        });   
 
 
-      });      
+    });      
 
-});
+
+    $(function() {  
+        $('body').on('click', 'td#qtyid', function(event) {
+            $(this).editable(function(value, settings) { 
+                //console.log($(this).value);
+                console.log($(this).siblings('.pricerow').text());
+                var price = $(this).siblings('.pricerow').text();
+                $(this).siblings('#parttotal').text((price * value).toFixed(2));
+                priceCalc(1);
+                //og($(this).siblings('#parttotal').text(price) * value);
+                 //$(this).siblings('#parttotal').text(sum.toFixed(2));
+                return(value);
+            },
+            { 
+                type    : 'text',
+                width   : '20px', 
+               // submit  : 'OK',
+            }); 
+        });    
+    });
+  
+  
+     $(function() {
+
+         $('body').on('click', 'button#servicequote', function(event) {
+            event.preventDefault();
+
+            var json = [];
+            var records = {};
+            
+            var tbl2 = $('#quote_form tr').each(function(i) {        
+                x = $(this).children();
+                var id =  $(x).siblings('#partid').text();
+                var qty =  $(x).siblings('#qtyid').text();
+                
+                if (!id) { 
+                    return;
+                }
+
+                var itArr = { 'id': id, 'qty': qty };
+                                //x.each(function() {
+                    //itArr.push('"' + $(x).siblings('#partid').text() + '"');
+                    //itArr.push('"' + $(x).siblings('#qtyid').text() + '"');
+                //});
+
+                json.push(itArr);
+            });
+
+            records.rec = json;
+
+            console.info(records);    
+
+            /*    
+            var tbl = $('table#quote_form tr').get().map(function(row) {
+                return $(row).find('td').get().map(function(cell) {
+                    return $(cell).html();
+                });
+            });
+            */
+            
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/main/quote',
+                async: 'true',
+                data: records, 
+                //dataType: 'json',
+                success: function (res) {
+                      console.info(res);  
+                }    
+            });  
+
+
+        });
+        
+    });        
+
+  });

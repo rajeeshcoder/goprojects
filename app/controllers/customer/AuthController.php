@@ -1,7 +1,7 @@
 <?php namespace App\Controllers\Customer;
  
 use App\Services\Validators\CustomerRegisterValidator; 
-use Auth, BaseController, Form, Input, Redirect, Sentry, View;
+use Auth, BaseController, Form, Input, Redirect, Sentry, View, Mail;
  
 class AuthController extends BaseController {
  
@@ -93,6 +93,9 @@ class AuthController extends BaseController {
                                 $currentCustomer->addGroup($customerGroup);
                                 // Log the customer in
                                 Sentry::login($currentCustomer, false);
+                                Mail::send('customer.mail.welcome', array('firstname'=>Input::get('firstname')), function($message){
+        $message->to(Input::get('email'), Input::get('firstname').' '.Input::get('lastname'))->subject('Welcome to the DashWheel!');
+    });
                                 return Redirect::route('home');
                          }
                         catch(\Exception $e)

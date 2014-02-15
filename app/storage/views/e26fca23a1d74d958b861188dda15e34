@@ -1,3 +1,4 @@
 <link href="<?php echo URL::asset('assets/css/grid.css'); ?>" rel="stylesheet">
+<script src="<?php echo URL::asset('assets/js/jquery.jeditable.js'); ?>"></script>
 <script src="<?php echo URL::asset('assets/js/mainapp.js'); ?>"></script>
 <script src="<?php echo URL::asset('assets/js/dealer.js'); ?>"></script>

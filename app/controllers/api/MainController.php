@@ -44,6 +44,21 @@ class MainController extends \BaseController {
           }
         }  
 
+        public function postQuote() {
+          if (Request::ajax()) {
+            $data = Input::get('rec');
+
+            //var_dump($data);
+            //$service_id = $data['service_id']; 
+            //$next_status_id = $data['next_status_id']; 
+            //$description = $data['description']; 
+            //$customer_service = ServiceMaster::find($service_id);
+            //$results = $customer_service->servicemasterstatus()->attach($next_status_id, array('description' => $description, 'user_id' => Sentry::getUser()->id));
+            //$results = $customer_service->servicemasterstatus()->attach(2, array('user_id' => Sentry::getUser()->id));
+            return \Response::json(array('data' => $data));
+          }
+        }  
+
 
         public function getQuote() {
                   //$manufacturer = Manufacturer::find($man_id);

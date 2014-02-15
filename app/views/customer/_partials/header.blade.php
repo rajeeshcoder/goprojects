@@ -1,13 +1,16 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
-   <div class="navbar-inner">
-      <div class="container-fluid">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-         <a class="brand" href="/">Car Service</a>
-         @include('customer._partials.navigation')  
+<div class="container">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">DashWheel</a>
       </div>
-   </div>
+      @include('customer._partials.navigation')  
+    </div>
+  </div>
 </div>
